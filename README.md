@@ -30,11 +30,10 @@ This Github is used for Group 5's Academic Projects for Wayne-State's Software E
 The softwares built for the projects will primarly include PYTHON for backend logic and HTML for frontend
 
 <!-- PROJECTS -->
-## Projects
+# Projects
 
-# Project 1
+<a href="">## Project 1</a>
 (//Description for Project 1)
-(//Link)
 
 <!-- CONTRIBUTORS -->
 ## Contributors
