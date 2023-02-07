@@ -22,7 +22,7 @@ This Github is used for Group 5's Academic Projects for Wayne-State's Software E
 
 <!-- BUILT WITH -->
 ## Built With
-The softwares built for The projects will primarly include PYTHON for backend logic and HTML for frontend
+The softwares built for the projects will primarly include PYTHON for backend logic and HTML for frontend
 
 <!-- CONTRIBUTORS -->
 ## Contributors
