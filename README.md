@@ -30,7 +30,7 @@ This Github is used for Group 5's Academic Projects for Wayne-State's Software E
 The softwares built for the projects will primarly include PYTHON for backend logic and HTML for frontend
 
 <!-- PROJECTS -->
-# Projects
+## Projects
 
 <a href="https://github.com/MarufSourav/CSC4110-Group5/tree/main/GroupProject1">Project 1</a>
 (//Short Description for Project 1)
