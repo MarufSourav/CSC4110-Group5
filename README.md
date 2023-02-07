@@ -33,7 +33,7 @@ The softwares built for the projects will primarly include PYTHON for backend lo
 ## Projects
 
 <a href="https://github.com/MarufSourav/CSC4110-Group5/tree/main/GroupProject1">Project 1</a>
-(//Short Description for Project 1)
+<p>(//Short Description for Project 1)</p>
 
 <!-- CONTRIBUTORS -->
 ## Contributors
