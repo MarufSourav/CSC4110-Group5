@@ -11,6 +11,9 @@
       <a href="#built-with">Built With</a>
     </li>
     <li>
+      <a href="#projects">Projects</a>
+    </li>
+    <li>
       <a href="#contributors">Contributors</a>
     </li>
   </ol>
@@ -18,11 +21,20 @@
 
 <!-- INTRODUCTION -->
 ## Introduction
+
 This Github is used for Group 5's Academic Projects for Wayne-State's Software Engineering(CSC4110) class.
 
 <!-- BUILT WITH -->
 ## Built With
+
 The softwares built for the projects will primarly include PYTHON for backend logic and HTML for frontend
+
+<!-- PROJECTS -->
+## Projects
+
+# Project 1
+(//Description for Project 1)
+(//Link)
 
 <!-- CONTRIBUTORS -->
 ## Contributors
