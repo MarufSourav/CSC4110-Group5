@@ -2,7 +2,7 @@ Task List for Project 1 Team 5
 
 1. Front End
 
-    Markup language: HTML5 (CSS/ bootstrap style tags optional) - [ ]
+    Markup language: HTML5 (CSS/ bootstrap style tags optional) -[x]
 
     A “homepage,” with three or four web links at the top; the next line is your team’s
     name, and any other pertinent information (i.e. team logo, memes) - [ ] 
