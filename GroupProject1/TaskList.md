@@ -2,15 +2,15 @@ Task List for Project 1 Team 5
 
 1. Front End
 
-    Markup language: HTML5 (CSS/ bootstrap style tags optional) -[x]
+    - [ ] Markup language: HTML5 (CSS/ bootstrap style tags optional) 
 
-    A “homepage,” with three or four web links at the top; the next line is your team’s
-    name, and any other pertinent information (i.e. team logo, memes) - [ ] 
+    - [ ] A “homepage,” with three or four web links at the top; the next line is your team’s
+    name, and any other pertinent information (i.e. team logo, memes)  
 
-    Each page/link represents ONE of your group projects for the semester - [ ]
+    - [ ] Each page/link represents ONE of your group projects for the semester 
 
-    The first webpage (or first link) is a link to this week’s “product,” as well as 
-	pertinent technical information - [ ]
+    - [ ] The first webpage (or first link) is a link to this week’s “product,” as well as 
+	pertinent technical information 
 	
 2. Application Coding
 	
