@@ -4,17 +4,17 @@
 
 - [ ] Markup language: HTML5 (CSS/ bootstrap style tags optional) 
 
-    - [ ] A “homepage,” with three or four web links at the top; the next line is your team’s
+- [ ] A “homepage,” with three or four web links at the top; the next line is your team’s
     name, and any other pertinent information (i.e. team logo, memes)  
 
-    - [ ] Each page/link represents ONE of your group projects for the semester 
+- [ ] Each page/link represents ONE of your group projects for the semester 
 
-    - [ ] The first webpage (or first link) is a link to this week’s “product,” as well as 
+- [ ] The first webpage (or first link) is a link to this week’s “product,” as well as 
 	pertinent technical information 
 	
 ## 2. Application Coding
 	
-	- [ ] The app must store, collect, and search data sets collected from pre-existing .csv files (or
+- [ ] The app must store, collect, and search data sets collected from pre-existing .csv files (or
 	equivalent) - example: Northwind’s ‘orders’ and ‘order detail’ files.  The external file is
 	to be collected, retrieved, and stored NON-perpetually.  New data is able to be added
 	(appended) and deleted. 
