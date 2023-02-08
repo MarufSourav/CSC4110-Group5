@@ -1,6 +1,6 @@
-Task List for Project 1 Team 5
+# Task List for Project 1 Team 5
 
-1. Front End
+## 1. Front End
 
     - [ ] Markup language: HTML5 (CSS/ bootstrap style tags optional) 
 
@@ -12,7 +12,7 @@ Task List for Project 1 Team 5
     - [ ] The first webpage (or first link) is a link to this week’s “product,” as well as 
 	pertinent technical information 
 	
-2. Application Coding
+## 2. Application Coding
 	
 	- [ ] The app must store, collect, and search data sets collected from pre-existing .csv files (or
 	equivalent) - example: Northwind’s ‘orders’ and ‘order detail’ files.  The external file is
@@ -38,7 +38,7 @@ Task List for Project 1 Team 5
 	
 	- [ ] Code can’t be executed if imported (see Detail - last page) 
 	
-3. Coding Compliance
+## 3. Coding Compliance
 	
 	- [ ] Code to be checked with Pylint (or equivalent) 
 	
@@ -61,7 +61,7 @@ Task List for Project 1 Team 5
 	- [ ] State that requirements will change over time, as technology and the overall security
 	landscape changes 
 	
-4. Presentation
+## 4. Presentation
 
 	LIVE - Tuesday February 28th, 2023 during class time, either in person or on ZOOM.
 	
@@ -74,7 +74,7 @@ Task List for Project 1 Team 5
 	
 	- [ ] Offer delivery options (eg. “we are working on a CLOUD implementation....”) 
 	
-5. Written (including technical documentation)
+## 5. Written (including technical documentation)
 	
 	- [ ] State your case!! Why should YOUR TEAM be chosen? 
 	
