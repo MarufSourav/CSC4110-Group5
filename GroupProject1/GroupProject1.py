@@ -24,7 +24,7 @@ def add_data():
 def import_data():
     """This fucntion collects data"""
     __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
-    file = open(os.path.join(__location__, 'employees.csv'),'r', encoding="utf-8")
+    file = open(os.path.join(__location__, 'assests/employees.csv'),'r', encoding="utf-8")
     csvreader = csv.reader(file)
     for row in csvreader:
         print(row)
