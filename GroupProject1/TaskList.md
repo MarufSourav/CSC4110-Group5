@@ -52,7 +52,7 @@ LIVE - Tuesday February 28th, 2023 during class time, either in person or on ZOO
 |---------------|-----|	
 |<ul><li>[ ] State your case!! Why should YOUR TEAM be chosen? </li></ul>| |
 |<ul><li>[ ] Format is Times New Roman, 12 point, double spaced </li></ul>| |
-|<ul><li>[ ] Include similar technical documentation from the website </li></ul>| |
+|<ul><li>[ ] Include similar technical documentation from the website </li></ul>|Joe Heaphy |
 |<ul><li>[ ] Include hosting quote in various platforms, such as AWS </li></ul>| |
 |<ul><li>[ ] Include future recommendations </li></ul>| |
 |<ul><li>[ ] APA references </li></ul>| |
