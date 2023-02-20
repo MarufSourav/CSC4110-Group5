@@ -13,9 +13,9 @@ data=[]
 
 #Setting up GUI
 root = Tk(className='Group Project 1')
-import_frame = Frame(root, background='red', width=500, height=100)
-store_frame = Frame(root, background='red', width=500, height=100)
-search_frame = Frame(root, background='red', width=500, height=100)
+import_frame = Frame(root, background='red')
+store_frame = Frame(root, background='red')
+search_frame = Frame(root, background='red')
 root.geometry("500x500")
 root.configure(bg='red')
 myFont = font.Font(family='Comic Sans', size=20, weight='bold')
@@ -43,6 +43,8 @@ def add_data():
     phone = phone_var.get()
     skill = skill_var.get()
     #checks for entries if correct
+    if not check_position(position):
+        return
     if not check_ssn(ssn):
         return
     if not check_email(email):
@@ -76,8 +78,7 @@ def import_data():
     destroy_children(import_frame)
     import_frame.pack()
     #Create label and entry for file name
-    file_label=Label(import_frame, text="Enter file name", background="red")
-    file_label.pack()
+    Label(import_frame, text="Enter file name", background="red").pack()
     file_entry=Entry(import_frame, textvariable=file_var)
     file_entry.focus_set()
     file_entry.pack()
@@ -98,8 +99,7 @@ def search_data():
 
     search_frame.pack()
     #create Entry and Label for search
-    search_label=Label(search_frame, text="Search", background="red")
-    search_label.pack(pady=(0,0))
+    Label(search_frame, text="Search", background="red").pack()
     search_entry=Entry(search_frame, textvariable=search_var)
     search_entry.focus_set()
     search_entry.pack()
@@ -158,6 +158,7 @@ def search_position():
     """This function will search position"""
     #Get name from entry
     position_serach = search_var.get()
+    check_position(position_serach)
     position_list=[]
     flag=True
     #search data for position
@@ -239,9 +240,9 @@ def file_error_window():
 
 def destroy_children(frame):
     """Destroy children of a frame"""
-    for widget in frame.winfo_children():
+    for widget in reversed(frame.winfo_children()):
         widget.destroy()
-    frame.tkraise()
+    frame.pack_forget()
 
 def check_ssn(ssn):
     """Checking if ssn is right"""
@@ -275,6 +276,18 @@ def check_email(email):
             Please try again").pack()
     return False
 
+def check_position(position):
+    """Checking if position is correct"""
+    position_check_list = ['Helper', 'Manager', 'Assistant Manager', 'Staff', 'Employee']
+    for position_check in position_check_list:
+        if position_check == position:
+            return True
+    position_window = Toplevel(root)
+    position_window.title("email error")
+    position_window.geometry("450x50")
+    Label(position_window, text="The position was not the correct\n\
+            Please try again (Manager, Assistant Manager, Helper, Staff, Employee)").pack()
+    return False
 
 def open_file():
     """Open file and get data"""
@@ -303,41 +316,28 @@ def store_data_entry():
 
     store_frame.pack()
     #create Labels and Entry for store data
-    name_label=Label(store_frame, text="Enter Name", background="red")
-    name_label.pack()
+    Label(store_frame, text="Enter Name", background="red").pack()
     name_entry=Entry(store_frame, textvariable=name_var)
     name_entry.focus_set()
     name_entry.pack(pady=2)
 
-    position_label=Label(store_frame, text="Enter position", background="red")
-    position_label.pack(pady=2)
-    position_entry=Entry(store_frame, textvariable=position_var)
-    position_entry.pack(pady=2)
+    Label(store_frame, text="Enter position", background="red").pack(pady=2)
+    Entry(store_frame, textvariable=position_var).pack(pady=2)
 
-    ssn_label=Label(store_frame, text="Enter ssn", background="red")
-    ssn_label.pack(pady=2)
-    ssn_entry=Entry(store_frame, textvariable=ssn_var)
-    ssn_entry.pack(pady=2)
+    Label(store_frame, text="Enter ssn", background="red").pack(pady=2)
+    Entry(store_frame, textvariable=ssn_var).pack(pady=2)
 
-    address_label=Label(store_frame, text="Enter address", background="red")
-    address_label.pack(pady=2)
-    address_entry=Entry(store_frame, textvariable=address_var)
-    address_entry.pack(pady=2)
+    Label(store_frame, text="Enter address", background="red").pack(pady=2)
+    Entry(store_frame, textvariable=address_var).pack(pady=2)
 
-    email_label=Label(store_frame, text="Enter email", background="red")
-    email_label.pack(pady=2)
-    email_entry=Entry(store_frame, textvariable=email_var)
-    email_entry.pack(pady=2)
+    Label(store_frame, text="Enter email", background="red").pack(pady=2)
+    Entry(store_frame, textvariable=email_var).pack(pady=2)
 
-    phone_label=Label(store_frame, text="Enter phone number, ex (888)555-4545", background="red")
-    phone_label.pack(pady=2)
-    phone_entry=Entry(store_frame, textvariable=phone_var)
-    phone_entry.pack(pady=2)
+    Label(store_frame, text="Enter phone number, ex (888)555-4545", background="red").pack(pady=2)
+    Entry(store_frame, textvariable=phone_var).pack(pady=2)
 
-    skill_label=Label(store_frame, text="Enter skill", background="red")
-    skill_label.pack(pady=2)
-    skill_entry=Entry(store_frame, textvariable=skill_var)
-    skill_entry.pack(pady=2)
+    Label(store_frame, text="Enter skill", background="red").pack(pady=2)
+    Entry(store_frame, textvariable=skill_var).pack(pady=2)
 
     #Make submit button, and clear all entries and labels
     sub_all_btn=Button(store_frame,text='Submit all',command=lambda:[add_data(),
@@ -346,21 +346,17 @@ def store_data_entry():
 
 #Creating buttons
 quit_btn = Button(root, text='Quit', bg='#022CC8',fg='#52FD44', command=root.destroy)
-store_btn = Button(root, text='Store', bg='#022CC8',fg='#52FD44', command=store_data_entry)
-collect_btn = Button(root, text='Import', bg='#022CC8',fg='#52FD44', command=import_data)
-search_btn = Button(root, text='Search', bg='#022CC8',fg='#52FD44', command=search_data)
+Button(root, text='Store', bg='#022CC8',fg='#52FD44', command=store_data_entry).place(x=20, y=20)
+Button(root, text='Import', bg='#022CC8',fg='#52FD44', command=import_data).place(x=20, y=80)
+Button(root, text='Search', bg='#022CC8',fg='#52FD44', command=search_data).place(x=20, y=140)
 
 quit_btn['font'] = myFont
 
 
 #Making the button display
 quit_btn.place(x=420, y=445)
-store_btn.place(x=20, y=20)
-collect_btn.place(x=20, y=80)
-search_btn.place(x=20, y=140)
-
 
 #Making Main run
 root.mainloop()
 #Group Project 1
-#Matthew Krol END version 3, 2/8/23
+#Matthew Krol END version 4, 2/20/23
