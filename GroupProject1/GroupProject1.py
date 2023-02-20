@@ -6,12 +6,16 @@ import tkinter.font as font
 import csv
 import os
 import re
+import pyperclip
 
 #Create list
 data=[]
 
 #Setting up GUI
 root = Tk(className='Group Project 1')
+import_frame = Frame(root, background='red', width=500, height=100)
+store_frame = Frame(root, background='red', width=500, height=100)
+search_frame = Frame(root, background='red', width=500, height=100)
 root.geometry("500x500")
 root.configure(bg='red')
 myFont = font.Font(family='Comic Sans', size=20, weight='bold')
@@ -25,6 +29,7 @@ email_var = StringVar()
 phone_var = StringVar()
 skill_var = StringVar()
 file_var = StringVar()
+search_var = StringVar()
 
 def add_data():
     """This function stores the data"""
@@ -64,27 +69,157 @@ def add_data():
     data.append(add_data_list)
 
 def import_data():
-    """This fucntion collects data"""
+    """This fucntion imports data"""
+    #Destroy Entry and Label for double clicks
+    destroy_children(store_frame)
+    destroy_children(search_frame)
+    destroy_children(import_frame)
+    import_frame.pack()
     #Create label and entry for file name
-    file_label=Label(text="Enter file name", background="red")
-    file_label.place(x=90, y=0)
-    file_entry=Entry(root, textvariable=file_var)
+    file_label=Label(import_frame, text="Enter file name", background="red")
+    file_label.pack()
+    file_entry=Entry(import_frame, textvariable=file_var)
     file_entry.focus_set()
-    file_entry.place(x=90, y = 20)
+    file_entry.pack()
     #create button to submit file name
-    sub_btn=Button(root, text = 'Submit file', command =lambda: [open_file(),
-        clear_entry(file_entry),clear_label(file_label), sub_btn.place_forget()])
-    sub_btn.place(x=90, y=50)
+    sub_btn=Button(import_frame, text = 'Submit file', command =lambda: [open_file(),
+    destroy_children(import_frame), sub_btn.destroy()])
+    sub_btn.pack(pady=10)
+
     #set file name back to nothing
     file_var.set("")
 
 def search_data():
     """This fucntion searches data"""
-    pass
+    #Destroying old widgets
+    destroy_children(store_frame)
+    destroy_children(search_frame)
+    destroy_children(import_frame)
+
+    search_frame.pack()
+    #create Entry and Label for search
+    search_label=Label(search_frame, text="Search", background="red")
+    search_label.pack(pady=(0,0))
+    search_entry=Entry(search_frame, textvariable=search_var)
+    search_entry.focus_set()
+    search_entry.pack()
+    #create search buttons
+    search_name_btn = Button(search_frame, text="Search Name", command=lambda:[search_name(),
+    destroy_children(search_frame), search_name_btn.destroy(),search_position_bt.destroy(),
+    search_ssn_btn.destroy()])
+    search_name_btn.pack()
+    search_position_bt=Button(search_frame,text="Search Position",command=lambda:[search_position(),
+    destroy_children(search_frame), search_name_btn.destroy(),search_position_bt.destroy(),
+    search_ssn_btn.destroy()])
+    search_position_bt.pack()
+    search_ssn_btn=Button(search_frame,text="Search SSN",command=lambda:[search_ssn(),
+    destroy_children(search_frame), search_name_btn.destroy(),search_position_bt.destroy(),
+    search_ssn_btn.destroy()])
+    search_ssn_btn.pack()
+
+    #Email, Skill
 
 def delete_data():
     """This fucntion will delete the data"""
     pass
+
+def search_name():
+    """This function will search name"""
+    #Get name from entry
+    name_serach = search_var.get()
+    flag=True
+    name_list=[]
+    #search data for name
+    for name in data:
+        if name_serach == name[0]:
+            name_list.append(name)
+            flag=False
+    if flag:
+        #Print window with not found
+        file_window = Toplevel(root)
+        file_window.title("Name search not found")
+        file_window.geometry("400x100")
+        Label(file_window, text="That name was not found").pack()
+        #Set variable back to empty
+        search_var.set("")
+        Button(file_window, text="Quit", command=file_window.destroy).pack()
+    else:
+        #print window with found
+        file_window = Toplevel(root)
+        file_window.title("Name search found")
+        file_window.geometry("600x100")
+        for name in name_list:
+            Label(file_window, text=name).pack()
+        search_var.set("")
+        Button(file_window, text="Copy", command=pyperclip.copy(str(name_list))).pack()
+        Button(file_window, text="Quit", command=file_window.destroy).pack()
+
+def search_position():
+    """This function will search position"""
+    #Get name from entry
+    position_serach = search_var.get()
+    position_list=[]
+    flag=True
+    #search data for position
+    for position in data:
+        if position_serach == position[1]:
+            position_list.append(position)
+            flag=False
+
+    if flag:
+        #Print window with not found
+        file_window = Toplevel(root)
+        file_window.title("Position search not found")
+        file_window.geometry("400x100")
+        Label(file_window, text="That position was not found").pack()
+        #Set variable back to empty
+        search_var.set("")
+        Button(file_window, text="Quit", command=file_window.destroy).pack()
+    else:
+        #print window with found
+        file_window = Toplevel(root)
+        file_window.title("Position search found")
+        file_window.geometry("800x800")
+        for position in position_list:
+            Label(file_window, text=position).pack()
+        search_var.set("")
+        Button(file_window, text="Copy", command=pyperclip.copy(str(position_list))).pack()
+        Button(file_window, text="Quit", command=file_window.destroy).pack()
+
+def search_ssn():
+    """Searching for ssn number"""
+    ssn_serach = search_var.get()
+    if not check_ssn(ssn_serach):
+        return
+    ssn_list=[]
+    flag=True
+    #search data for position
+    for ssn in data:
+        if ssn_serach == ssn[2]:
+            ssn_list.append(ssn)
+            flag=False
+
+    if flag:
+        #Print window with not found
+        file_window = Toplevel(root)
+        file_window.title("SSN search not found")
+        file_window.geometry("400x100")
+        Label(file_window, text="That SSN was not found").pack()
+        #Set variable back to empty
+        search_var.set("")
+        Button(file_window, text="Quit", command=file_window.destroy).pack()
+    else:
+        #print window with found
+        file_window = Toplevel(root)
+        file_window.title("SSN search found")
+        file_window.geometry("600x100")
+        for ssn in ssn_list:
+            Label(file_window, text=ssn).pack()
+        search_var.set("")
+        Button(file_window, text="Copy", command=pyperclip.copy(str(ssn_list))).pack()
+        Button(file_window, text="Quit", command=file_window.destroy).pack()
+
+
 
 def file_error_window():
     """Open an error window"""
@@ -102,13 +237,11 @@ def file_error_window():
     # A Label widget to show in toplevel
     Label(file_window, text ="The File was not found, Try again").pack()
 
-def clear_entry(entry):
-    """To handle clearing an entry"""
-    entry.destroy()
-
-def clear_label(label):
-    """To heandle clearing labels"""
-    label.destroy()
+def destroy_children(frame):
+    """Destroy children of a frame"""
+    for widget in frame.winfo_children():
+        widget.destroy()
+    frame.tkraise()
 
 def check_ssn(ssn):
     """Checking if ssn is right"""
@@ -122,7 +255,7 @@ def check_ssn(ssn):
 
 def check_phone(phone):
     """Check if phone is correct format"""
-    if re.match("\(\d{3}\)\d{3}-\d{4}",phone):
+    if re.match(r"\(\d{3}\)\d{3}-\d{4}",phone):
         return True
     phone_window = Toplevel(root)
     phone_window.title("phone number error")
@@ -162,55 +295,59 @@ def open_file():
 #Making Entry
 def store_data_entry():
     """Creating an entry for storing data"""
-    name_label=Label(text="Enter Name", background="red")
-    name_label.place(x=90, y=0)
-    name_entry=Entry(root, textvariable=name_var)
+
+    #Destroy widgets in frames
+    destroy_children(store_frame)
+    destroy_children(search_frame)
+    destroy_children(import_frame)
+
+    store_frame.pack()
+    #create Labels and Entry for store data
+    name_label=Label(store_frame, text="Enter Name", background="red")
+    name_label.pack()
+    name_entry=Entry(store_frame, textvariable=name_var)
     name_entry.focus_set()
-    name_entry.place(x=90, y = 20)
+    name_entry.pack(pady=2)
 
-    position_label=Label(text="Enter position", background="red")
-    position_label.place(x=90, y=40)
-    position_entry=Entry(root, textvariable=position_var)
-    position_entry.place(x=90, y = 60)
+    position_label=Label(store_frame, text="Enter position", background="red")
+    position_label.pack(pady=2)
+    position_entry=Entry(store_frame, textvariable=position_var)
+    position_entry.pack(pady=2)
 
-    ssn_label=Label(text="Enter ssn", background="red")
-    ssn_label.place(x=90, y=80)
-    ssn_entry=Entry(root, textvariable=ssn_var)
-    ssn_entry.place(x=90, y = 100)
+    ssn_label=Label(store_frame, text="Enter ssn", background="red")
+    ssn_label.pack(pady=2)
+    ssn_entry=Entry(store_frame, textvariable=ssn_var)
+    ssn_entry.pack(pady=2)
 
-    address_label=Label(text="Enter address", background="red")
-    address_label.place(x=90, y=120)
-    address_entry=Entry(root, textvariable=address_var)
-    address_entry.place(x=90, y = 140)
+    address_label=Label(store_frame, text="Enter address", background="red")
+    address_label.pack(pady=2)
+    address_entry=Entry(store_frame, textvariable=address_var)
+    address_entry.pack(pady=2)
 
-    email_label=Label(text="Enter email", background="red")
-    email_label.place(x=90, y=160)
-    email_entry=Entry(root, textvariable=email_var)
-    email_entry.place(x=90, y = 180)
+    email_label=Label(store_frame, text="Enter email", background="red")
+    email_label.pack(pady=2)
+    email_entry=Entry(store_frame, textvariable=email_var)
+    email_entry.pack(pady=2)
 
-    phone_label=Label(text="Enter phone number, ex (888)555-4545", background="red")
-    phone_label.place(x=90, y=200)
-    phone_entry=Entry(root, textvariable=phone_var)
-    phone_entry.place(x=90, y = 220)
+    phone_label=Label(store_frame, text="Enter phone number, ex (888)555-4545", background="red")
+    phone_label.pack(pady=2)
+    phone_entry=Entry(store_frame, textvariable=phone_var)
+    phone_entry.pack(pady=2)
 
-    skill_label=Label(text="Enter skill", background="red")
-    skill_label.place(x=90, y=240)
-    skill_entry=Entry(root, textvariable=skill_var)
-    skill_entry.place(x=90, y = 260)
+    skill_label=Label(store_frame, text="Enter skill", background="red")
+    skill_label.pack(pady=2)
+    skill_entry=Entry(store_frame, textvariable=skill_var)
+    skill_entry.pack(pady=2)
 
     #Make submit button, and clear all entries and labels
-    sub_all_btn=Button(root,text='Submit all',command =lambda:[add_data(), clear_entry(name_entry),
-    clear_entry(position_entry), clear_entry(ssn_entry), clear_entry(address_entry),
-    clear_entry(email_entry),clear_entry(phone_entry),clear_entry(skill_entry),
-    clear_label(name_label),clear_label(position_label),clear_label(ssn_label),
-    clear_label(address_label),clear_label(email_label),clear_label(phone_label),
-    clear_label(skill_label), sub_all_btn.place_forget()])
-    sub_all_btn.place(x=90, y = 300)
+    sub_all_btn=Button(store_frame,text='Submit all',command=lambda:[add_data(),
+    destroy_children(store_frame), sub_all_btn.destroy()])
+    sub_all_btn.pack(pady=10)
 
 #Creating buttons
 quit_btn = Button(root, text='Quit', bg='#022CC8',fg='#52FD44', command=root.destroy)
 store_btn = Button(root, text='Store', bg='#022CC8',fg='#52FD44', command=store_data_entry)
-collect_btn = Button(root, text='Collect', bg='#022CC8',fg='#52FD44', command=import_data)
+collect_btn = Button(root, text='Import', bg='#022CC8',fg='#52FD44', command=import_data)
 search_btn = Button(root, text='Search', bg='#022CC8',fg='#52FD44', command=search_data)
 
 quit_btn['font'] = myFont
@@ -225,9 +362,5 @@ search_btn.place(x=20, y=140)
 
 #Making Main run
 root.mainloop()
-
 #Group Project 1
-#Matthew Krol END version 2, 2/8/23
-
-for employee in data:
-    print(employee, "\n")
+#Matthew Krol END version 3, 2/8/23
