@@ -347,22 +347,6 @@ def search_skill():
         Button(file_window, text="Copy", command=pyperclip.copy(str(skill_list))).pack()
         Button(file_window, text="Quit", command=file_window.destroy).pack()
 
-def file_error_window():
-    """Open an error window"""
-    # Toplevel object which will
-    # be treated as a new window
-    file_window = Toplevel(root)
-
-    # sets the title of the
-    # Toplevel widget
-    file_window.title("File Not Found")
-
-    # sets the geometry of toplevel
-    file_window.geometry("400x50")
-
-    # A Label widget to show in toplevel
-    Label(file_window, text ="The File was not found, Try again").pack()
-
 def destroy_children(frame):
     """Destroy children of a frame"""
     for widget in reversed(frame.winfo_children()):
@@ -428,7 +412,20 @@ def open_file():
             data.append(row)
         file.close()
     except FileNotFoundError:
-        file_error_window()
+        # Toplevel object which will
+        # be treated as a new window
+        file_window = Toplevel(root)
+
+        # sets the title of the
+        # Toplevel widget
+        file_window.title("File Not Found")
+
+        # sets the geometry of toplevel
+        file_window.geometry("400x50")
+
+        # A Label widget to show in toplevel
+        Label(file_window, text ="The File was not found, Try again").pack()
+        Label(file_window, text="Put file in " + __location__).pack()
 
 def store_data_entry():
     """Creating an entry for storing data"""
