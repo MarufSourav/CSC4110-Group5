@@ -402,11 +402,9 @@ def open_file():
     """Open file and get data"""
     #get file name from entry
     file_name = file_var.get()
-    #Get location of file
-    __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
     #try to open file and import data, otherwise print error
     try:
-        file = open(os.path.join(__location__, file_name),'r', encoding="utf-8")
+        file = open(file_name,'r', encoding="utf-8")
         imported_data = csv.reader(file)
         for row in imported_data:
             data.append(row)
@@ -415,17 +413,11 @@ def open_file():
         # Toplevel object which will
         # be treated as a new window
         file_window = Toplevel(root)
-
         # sets the title of the
-        # Toplevel widget
         file_window.title("File Not Found")
-
-        # sets the geometry of toplevel
         file_window.geometry("400x50")
-
         # A Label widget to show in toplevel
         Label(file_window, text ="The File was not found, Try again").pack()
-        Label(file_window, text="Put file in " + __location__).pack()
 
 def store_data_entry():
     """Creating an entry for storing data"""
