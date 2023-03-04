@@ -1,10 +1,10 @@
 """Group Project 1
 Matthew Krol START version 1, 2/8/23
 """
+
 from tkinter import *
 import tkinter.font as font
 import csv
-import os
 import re
 import pyperclip
 
@@ -70,12 +70,12 @@ def add_data():
     email_var.set("")
     phone_var.set("")
     skill_var.set("")
-
+    #add data to the list
     data.append(add_data_list)
 
 def import_data():
     """This fucntion imports data"""
-    #Destroy Entry and Label for double clicks
+    #Destroy Entry and Label that were existance before click
     destroy_children(store_frame)
     destroy_children(search_frame)
     destroy_children(import_frame)
@@ -87,10 +87,8 @@ def import_data():
     file_entry.focus_set()
     file_entry.pack()
     #create button to submit file name
-    sub_btn=Button(import_frame, text = 'Submit file', command =lambda: [open_file(),
-    destroy_children(import_frame), sub_btn.destroy()])
-    sub_btn.pack(pady=10)
-
+    Button(import_frame, text = 'Submit file', command =lambda: [open_file(),
+        destroy_children(import_frame)]).pack(pady=10)
     #set file name back to nothing
     file_var.set("")
 
@@ -104,31 +102,21 @@ def search_data():
 
     search_frame.pack()
     #create Entry and Label for search
-    Label(search_frame, text="Search", background="red").pack()
+    Label(search_frame, text="Search for employee", background="red").pack()
     search_entry=Entry(search_frame, textvariable=search_var)
     search_entry.focus_set()
     search_entry.pack()
     #create search buttons
-    search_name_btn = Button(search_frame, text="Search Name", command=lambda:[search_name(),
-    destroy_children(search_frame), search_name_btn.destroy(),search_position_bt.destroy(),
-    search_ssn_btn.destroy(),search_email_btn.destroy(),search_skill_btn.destroy()])
-    search_name_btn.pack(pady=5)
-    search_position_bt=Button(search_frame,text="Search Position",command=lambda:[search_position(),
-    destroy_children(search_frame), search_name_btn.destroy(),search_position_bt.destroy(),
-    search_ssn_btn.destroy(),search_email_btn.destroy(),search_skill_btn.destroy()])
-    search_position_bt.pack(pady=5)
-    search_ssn_btn=Button(search_frame,text="Search SSN",command=lambda:[search_ssn(),
-    destroy_children(search_frame), search_name_btn.destroy(),search_position_bt.destroy(),
-    search_ssn_btn.destroy(),search_email_btn.destroy(),search_skill_btn.destroy()])
-    search_ssn_btn.pack(pady=5)
-    search_email_btn=Button(search_frame,text="Search Email",command=lambda:[search_email(),
-    destroy_children(search_frame), search_name_btn.destroy(),search_position_bt.destroy(),
-    search_ssn_btn.destroy(),search_email_btn.destroy(),search_skill_btn.destroy()])
-    search_email_btn.pack(pady=5)
-    search_skill_btn=Button(search_frame,text="Search Skill",command=lambda:[search_skill(),
-    destroy_children(search_frame), search_name_btn.destroy(),search_position_bt.destroy(),
-    search_ssn_btn.destroy(),search_email_btn.destroy(),search_skill_btn.destroy()])
-    search_skill_btn.pack(pady=5)
+    Button(search_frame, text="Search Name", command=lambda:[search_name(),
+        destroy_children(search_frame)]).pack(pady=10)
+    Button(search_frame,text="Search Position",command=lambda:[search_position(),
+        destroy_children(search_frame)]).pack(pady=5)
+    Button(search_frame,text="Search SSN",command=lambda:[search_ssn(),
+        destroy_children(search_frame)]).pack(pady=5)
+    Button(search_frame,text="Search Email",command=lambda:[search_email(),
+        destroy_children(search_frame)]).pack(pady=5)
+    Button(search_frame,text="Search Skill",command=lambda:[search_skill(),
+        destroy_children(search_frame)]).pack(pady=5)
 
 def delete_data():
     """This fucntion will delete the data"""
@@ -140,21 +128,42 @@ def delete_data():
     delete_frame.pack()
     #Creating Label and Entry for deleting
     Label(delete_frame, text="Delete this row from the list by SSN", background="red").pack()
-    search_entry=Entry(delete_frame, textvariable=delete_var)
-    search_entry.focus_set()
-    search_entry.pack()
+    delete_entry=Entry(delete_frame, textvariable=delete_var)
+    delete_entry.focus_set()
+    delete_entry.pack()
 
     #Create button to delete ssn
-    delete_ssn_btn=Button(delete_frame,text="Delete", command=lambda:[delete_snn(),
-    destroy_children(delete_frame)])
-    delete_ssn_btn.pack(pady=5)
+    Button(delete_frame,text="Delete", command=lambda:[delete_snn(),
+    destroy_children(delete_frame)]).pack(pady=5)
+
+def show_data():
+    """This will show all the data"""
+    if data:
+        #Create window
+        show_window = Toplevel(root)
+        show_window.title("Showing all data")
+        show_window.geometry("800x800")
+        Label(show_window, text="This is all the employees").pack()
+        #Create Scroolbar
+        scroll_bar = Scrollbar(show_window)
+        scroll_bar.pack(side=RIGHT, fill=Y)
+        #Create listbox for scrolling
+        employee_list = Listbox(show_window,width=800,height=100, yscrollcommand=scroll_bar.set)
+        employee_list.pack(side=LEFT, fill=BOTH, expand=True, pady=25)
+        for employee in data:
+            employee_list.insert(END, employee)
+        Button(show_window, text="Copy", command=pyperclip.copy(str(data))).place(x=250, y=775)
+        Button(show_window, text="Quit", command=show_window.destroy).place(x=750, y=775)
+        scroll_bar.config(command=employee_list.yview)
 
 def delete_snn():
     """This funcion will delete the row from the table"""
     ssn_delete = delete_var.get()
+    #Checking ssn to make sure it is only numbers
     if not check_ssn(ssn_delete):
         return
     flag=True
+    #check for ssn in data
     for ssn in data:
         if ssn_delete == ssn[2]:
             temp_ssn = ssn
@@ -188,7 +197,7 @@ def search_name():
     name_list=[]
     #search data for name
     for name in data:
-        if name_serach == name[0]:
+        if name_serach in name[0]:
             name_list.append(name)
             flag=False
     if flag:
@@ -215,12 +224,13 @@ def search_position():
     """This function will search position"""
     #Get name from entry
     position_serach = search_var.get()
-    check_position(position_serach)
+    if not check_position(position_serach):
+        return
     position_list=[]
     flag=True
     #search data for position
     for position in data:
-        if position_serach == position[1]:
+        if position_serach in position[1]:
             position_list.append(position)
             flag=False
 
@@ -253,7 +263,7 @@ def search_ssn():
     flag=True
     #search data for position
     for ssn in data:
-        if ssn_serach == ssn[2]:
+        if ssn_serach in ssn[2]:
             ssn_list.append(ssn)
             flag=False
 
@@ -270,7 +280,7 @@ def search_ssn():
         #print window with found
         file_window = Toplevel(root)
         file_window.title("SSN search found")
-        file_window.geometry("600x100")
+        file_window.geometry("800x100")
         for ssn in ssn_list:
             Label(file_window, text=ssn).pack()
         search_var.set("")
@@ -285,7 +295,7 @@ def search_email():
     email_list=[]
     flag=True
     for email in data:
-        if email_search == email[4]:
+        if email_search in email[4]:
             email_list.append(email)
             flag=False
     if flag:
@@ -324,7 +334,7 @@ def search_skill():
     skill_list=[]
     flag=True
     for skill in data:
-        if skill_search == skill[6]:
+        if skill_search in skill[6]:
             skill_list.append(skill)
             flag=False
     if flag:
@@ -410,7 +420,6 @@ def open_file():
             data.append(row)
         file.close()
     except FileNotFoundError:
-        # Toplevel object which will
         # be treated as a new window
         file_window = Toplevel(root)
         # sets the title of the
@@ -434,7 +443,7 @@ def store_data_entry():
     name_entry=Entry(store_frame, textvariable=name_var)
     name_entry.focus_set()
     name_entry.pack(pady=2)
-
+    #Make Labels and Entries for storing employee
     Label(store_frame, text="Enter position", background="red").pack(pady=2)
     Entry(store_frame, textvariable=position_var).pack(pady=2)
 
@@ -454,9 +463,8 @@ def store_data_entry():
     Entry(store_frame, textvariable=skill_var).pack(pady=2)
 
     #Make submit button, and clear all entries and labels
-    sub_all_btn=Button(store_frame,text='Submit all',command=lambda:[add_data(),
-    destroy_children(store_frame), sub_all_btn.destroy()])
-    sub_all_btn.pack(pady=10)
+    Button(store_frame,text='Submit all',command=lambda:[add_data(),
+    destroy_children(store_frame)]).pack(pady=10)
 
 #Creating buttons
 Button(root, text='Quit', bg='#022CC8',fg='#52FD44', font=quit_font,
@@ -469,10 +477,16 @@ Button(root, text='Search', bg='#022CC8',fg='#52FD44',font=root_button_font,
        command=search_data).place(x=20, y=140)
 Button(root, text='Delete', bg='#022CC8',fg='#52FD44', font=root_button_font,
        command=delete_data).place(x=20, y=200)
+Button(root, text='Show', bg='#022CC8',fg='#52FD44', font=root_button_font,
+       command=show_data).place(x=20, y=260)
 
 
 #Making Main run
-root.mainloop()
+def main():
+    """Run main"""
+    root.mainloop()
 
+if __name__ == "__main__":
+    main()
 #Group Project 1
 #Matthew Krol END version 5, 2/20/23
