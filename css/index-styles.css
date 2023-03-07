@@ -16,7 +16,7 @@ h1
     font-family: Arial, Helvetica, sans-serif;
     color: white
 }
-.column p {font-size: 20px;}
+.column p {font-size: 20px; font-family: Arial, Helvetica, sans-serif;}
 .topnav {
     background-color: #333;
     overflow: hidden;
