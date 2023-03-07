@@ -1,6 +1,97 @@
 <!DOCTYPE html>
-<html>
-    <nav>
+<link rel="stylesheet" href="../css/index-styles.css">
+<html> 
+    <div class="topnav">
         <a href="../index.html">Home</a>
-    </nav>
+        <a class="active" href="#GroupProject1/index-GP1.html">Project 1</a>
+        <a href="../GroupProject2/index-GP2.html">Project 2</a>
+        <a href="../GroupProject3/index-GP3.html">Project 3</a>
+    </div>
+    <div class="TechInfo">
+        <h1>Technical Information</h1>
+        <p>
+            The Software has fuctionalities to store and keep track<br>
+            of employee data. The fuctionalities are: <br>
+            || Store: The user can enter a Information about new employee such as NAME, POSITION, SSN, <br>ADDRESS, EMAIL, PHONE, SKILLS
+            <br><br>
+            || Import: The user can Load a pre-existing database 
+            <br><br>
+            || Search: The user can search for an employee in a database
+            <br><br>
+            || Delete: The user can delete an employee of the database
+            <br><br>
+            || Show: The user can show the loaded database.
+        </p>
+    </div>
+    <img src="program1.png" width="300"
+    height="300"/>
+    <img src="program2.png" width="300"
+    height="300"/>
+    <div class="userAgreement">
+        <p1>IMPORTANT END USER AGREEMENT:</p1><p>User MAY NOT SELL AND DISTRIBUTE without
+            the express consent of "company name".<br>User MAY NOT share application with third-party individual or organization.<br>
+            INDEMNIFICATION OF USER through "company name"'s application, the "company name" CAN NOT BE LEGALLY LIABLE.<br>
+            INDEMNIFICATION OF USER consists of DATA-BREACH, ZERO-DAY ATTACKS, DATA WORMS, SQL INJECTION.
+            USER MUST TAKE PREVENTATIVE MEASURES such as PERIODIC VULNERABILITY ASSESSMENTS, PROTOCOLS IN CASE OF INDEMNIFICATION OF USER.
+            <br><br>
+            The following Agreement is SUBJECT TO CHANGE as the state of Technology and Security progresses.
+        </p>
+    </div><br>
+    <label>
+    <input type="checkbox" id="agree" name="agree"> I agree to the END USER AGREEMENT ABOVE
+    </label>
+    <br><br>
+    <button id="download-btn-1" style="display:none;">Executable File</button>
+    <button id="download-btn-2" style="display:none;">Python File</button>
+    <button id="download-btn-3" style="display:block;">Technical Documentation</button>
+      
+    <script>
+        const agreeCheckbox = document.getElementById("agree");
+        const downloadBtnOne = document.getElementById("download-btn-1");
+        const downloadBtnTwo = document.getElementById("download-btn-2");
+        const downloadBtnThree = document.getElementById("download-btn-3");      
+        agreeCheckbox.addEventListener("change", function() {
+            if (this.checked) {downloadBtnOne.style.display = "block";
+            downloadBtnTwo.style.display = "block";}
+            else {downloadBtn.style.display = "none";downloadBtnTwo.style.display = "none";}
+        }
+        );
+        downloadBtnOne.addEventListener("click", function() {
+        const fileUrl = "dist/project1.exe"; 
+        const fileName = "project1.exe";
+        const link = document.createElement("a");
+        link.href = fileUrl;
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        }
+        );
+        downloadBtnTwo.addEventListener("click", function() {
+        const fileUrl = "dist/project1.py"; 
+        const fileName = "project1.py";
+        const link = document.createElement("a");
+        link.href = fileUrl;
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+        }
+        );
+        downloadBtnThree.addEventListener("click", function() {
+        const fileUrl = "./CSC4110Project1Group5.pdf"; 
+        const fileName = "CSC4110Project1Group5.pdf";
+        const link = document.createElement("a");
+        link.href = fileUrl;
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+        }
+        );
+    </script>
+    <footer>
+        <p>2023 CSC4010<br>
+            Last Updated: March 7th 2023 (3/7/2023)<br>
+            <Address>14601 Twelve Mile Rd, Warren, MI 48088</Address>        
+        </p>
+    </footer>
 </html>
