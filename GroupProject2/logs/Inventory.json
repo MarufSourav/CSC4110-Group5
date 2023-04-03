@@ -1,0 +1,36 @@
+{
+    "Toppings": [
+        {
+            "Item": "Pepporini",
+            "Quanity": 5
+        },
+        {
+            "Item": "Ham",
+            "Quanity": 10
+        },
+        {
+            "Item": "Bacon",
+            "Quanity": 10
+        },
+        {
+            "Item": "Sausage",
+            "Quanity": 10
+        },
+        {
+            "Item": "Mushroom",
+            "Quanity": 10
+        },
+        {
+            "Item": "Green Pepper",
+            "Quanity": 9
+        },
+        {
+            "Item": "Onion",
+            "Quanity": 9
+        },
+        {
+            "Item": "Banana Pepper",
+            "Quanity": 9
+        }
+    ]
+}
