@@ -18,7 +18,7 @@ file = open(os.path.join(__location__,"logs/Order_File.txt"),
     mode="a+", encoding="utf-8")
 file.write(f"Today's Date: {str(date.today())}\n")
 file.close()
-
+employee_name = "No one"
 class PizzaApp(tk.Tk):
     """Class for Pizza app"""
 
@@ -54,7 +54,7 @@ class PizzaApp(tk.Tk):
         '''Show a frame for the given page name'''
         with open(os.path.join(__location__,"logs/employeeslog.txt"),
             mode="a+", encoding="utf-8") as emp_file:
-            emp_file.write(f"Logged into: {page_name}\n")
+            emp_file.write(f"{employee_name} logged into: {page_name}\n")
             emp_file.close()
         frame = self.frames[page_name]
         frame.tkraise()
@@ -71,6 +71,7 @@ class StartPage(tk.Frame,PizzaApp):
         self.exit =(os.path.abspath(os.path.join(__location__, "assests/exit.png")))
         self.manager =(os.path.abspath(os.path.join(__location__, "assests/manager.png")))
         self.customer =(os.path.abspath(os.path.join(__location__, "assests/customer.png")))
+        self.login =(os.path.abspath(os.path.join(__location__, "assests/login.png")))
         # Open image using PIL
         self.clock = Image.open(self.clock)
         self.clock = self.clock.resize((200,200))
@@ -82,6 +83,8 @@ class StartPage(tk.Frame,PizzaApp):
         self.manager = self.manager.resize((200,200))
         self.customer = Image.open(self.customer)
         self.customer = self.customer.resize((200,200))
+        self.login = Image.open(self.login)
+        self.login = self.login.resize((200,200))
 
         # Convert the PIL image object to a Tkinter PhotoImage object
         self.clock = ImageTk.PhotoImage(self.clock)
@@ -89,21 +92,89 @@ class StartPage(tk.Frame,PizzaApp):
         self.exit = ImageTk.PhotoImage(self.exit)
         self.manager = ImageTk.PhotoImage(self.manager)
         self.customer = ImageTk.PhotoImage(self.customer)
+        self.login = ImageTk.PhotoImage(self.login)
 
         # Create a button widget with the image
         tk.Button(self, text='TIME CLOCK', image=self.clock,compound='top',bg='blue',borderwidth=0,
             command=lambda:controller.show_frame("ClockPage")).place(x=400,y=50)
         tk.Button(self, text="MENU", image=self.menu,compound='top',bg='blue',borderwidth=0,command=
-            lambda:controller.show_frame("MenuPage")).place(x=400,y=700)
+            lambda: self.log_in_fn("MenuPage")).place(x=400,y=700)
         tk.Button(self, text="Manager",image=self.manager,compound='top',bg='blue',borderwidth=0,
-            command=lambda: controller.show_frame("ManagerPage")).place(x=700,y=400)
+            command=lambda: self.log_in_fn("ManagerPage")).place(x=700,y=400)
         tk.Button(self, text="Exit",image=self.exit,compound='top',bg='blue',borderwidth=0,
-            command=controller.destroy).place(x=800,y=775)
+            command=self.exit_program).place(x=800,y=775)
         tk.Button(self, image=self.customer,compound='top',bg='blue',borderwidth=0,
-            text="Customer",command=lambda:controller.show_frame("CustomerPage")).place(x=100,y=400)
+            text="Customer",command=lambda:self.log_in_fn("CustomerPage")).place(x=100,y=400)
+        tk.Button(self, image=self.login,compound='top',bg='blue',borderwidth=0,
+            text="Login",command=self.login_page).place(x=0,y=775)
 
         label=tk.Label(self,bg="blue",text="BLUE LATERN\nPIZZA APP",font=(controller.title_font,30))
         label.place(x=380,y=475)
+    def log_in_fn(self, frame):
+        """Function to determine if someone is logged in"""
+        if employee_name == "No one":
+            messagebox.showerror("Login", "Must be logged in.")
+            return
+        else:
+            self.controller.show_frame(frame)
+    def exit_program(self):
+        """Exiting the program"""
+        #Add logging
+        with open(os.path.join(__location__,"logs/employeeslog.txt"),
+            mode="a+", encoding="utf-8") as emp_file:
+            emp_file.write(f"You have exited the program for today {str(date.today())}\n\n\n\n")
+            emp_file.close()
+        self.controller.destroy()
+
+    def login_page(self):
+        """Page for logging in"""
+        #Create the window for logging in
+        self.login_win = tk.Toplevel()
+        self.login_win.title("Log in")
+        self.login_win.geometry("200x100")
+        self.login_win.configure(background = "blue")
+
+        emp_label = Label(self,bg="blue", text="Enter your 4 digit employee pin")
+        emp_label.pack()
+        self.emp_pin = Entry(self.login_win, width=10)
+        self.emp_pin.focus_set()
+        self.emp_pin.pack()
+        Button(self.login_win, text="Log in", command=self.login_page_log).pack()
+        Button(self.login_win, text="Quit", command=self.login_win.destroy).pack()
+
+    def login_page_log(self):
+        """Fucntion to give a success message after logging in"""
+        if self.validate_pin() == 1:
+            with open(os.path.join(__location__,"logs/employeeslog.txt"),
+                mode="a+", encoding="utf-8") as emp_file:
+                emp_file.write(f"{employee_name} has successfully logged in.\n")
+                emp_file.close()
+            messagebox.showinfo("Logged in", f"{employee_name} has logged in successfully")
+            self.login_win.destroy()
+        else:
+            return
+
+    def validate_pin(self):
+        """Validating the Pin"""
+        n = 0
+        global employee_name
+        if self.emp_pin.get() == "":
+            messagebox.showerror("Error", "Invalid pin. Please try again.")
+            return
+        #make sure pin is valid by searching for employee number in employee file
+        with open(os.path.join(__location__,"logs/employees.txt"), 'r', encoding="utf-8") as file:
+            lines = file.readlines()
+            for line in lines:
+                if self.emp_pin.get() in line:
+                    employee_name = re.split(r'\s+(?=\d)|(?<=\d)\s+', line)[0]
+                    n = 1
+        self.emp_pin.delete(0,END)
+        #invalid pin error message
+        if n != 1:
+            messagebox.showerror("Error", "Invalid pin. Please try again.")
+            return n
+        return n
+
 
 class MenuPage(StartPage):
     """Menu page for the pizza application"""
@@ -208,7 +279,7 @@ class MenuPage(StartPage):
         tk.Button(self, image=self.submit_order,compound="top",text="Submit Order",
             command=self.submit_order_fn).place(x=600,y=810)
         tk.Button(self, image=self.exit,compound="top",
-            text="Exit", command=lambda: self.controller.show_frame("StartPage")).place(x=800,y=810)
+            text="Exit", command=self.exit_fn).place(x=800,y=810)
 
     def pizza_frame(self):
         """Pizza fram for menu"""
@@ -473,7 +544,7 @@ class MenuPage(StartPage):
 
     def submit_order_fn(self):
         """For Submitting orders"""
-        global ORDER_NUMBER, CUSTOMER, order_box
+        global ORDER_NUMBER, CUSTOMER, order_box, employee_name
         #Check if box is empty before sumbiting order
         if order_box.size() == 0:
             messagebox.showerror("Empty", "Order is empty")
@@ -493,9 +564,9 @@ class MenuPage(StartPage):
             except FileNotFoundError:
                 messagebox.showerror("File not Found", "File not Found")
                 return
-            cus_file.write(f"Customer: {customer_phone.get()}\t")
-            cus_file.write(f"\t{customer_name.get()} ")
-            cus_file.write(f"\t{customer_address.get()}\n")
+            cus_file.write(f"Customer: {customer_phone.get()} ")
+            cus_file.write(f"{customer_name.get()} ")
+            cus_file.write(f"{customer_address.get()}\n")
             cus_file.close()
 
             for i in CUSTOMER:
@@ -504,7 +575,12 @@ class MenuPage(StartPage):
             self.inv_update()
             #Clearing info
             order_box.delete(0,END)
+            with open(os.path.join(__location__,"logs/employeeslog.txt"),
+                mode="a+", encoding="utf-8") as emp_file:
+                emp_file.write(f"{employee_name} Submitted order number {ORDER_NUMBER}\n")
+                emp_file.close()
             self.controller.show_frame("StartPage")
+            employee_name = "No one"
             ORDER_NUMBER +=1
 
     def inv_update(self):
@@ -538,7 +614,7 @@ class MenuPage(StartPage):
 
     def write_order_file(self):
         """Writing order to file"""
-        global order_box
+        global order_box, employee_name
         #open file
         try:
             file = open(os.path.join(__location__, "logs/Order_File.txt"),
@@ -570,18 +646,20 @@ class MenuPage(StartPage):
                             "Please enter an addess for the delivery")
                         return
                 #write order nubmer to file
-                file.write(f"Order Number {ORDER_NUMBER}")
+                file.write(f"Order Number {ORDER_NUMBER} ")
                 file.write(f" {i} ")
                 #Writing Customer info to order
-                file.write(f"Customer: {customer_phone.get()}\t")
-                file.write(f"\t{customer_name.get()} ")
+                file.write(f"Customer: {customer_phone.get()} ")
+                file.write(f"{customer_name.get()} ")
                 #Only Write the address for a delivery
                 if str(i) == 'Delivery':
-                    file.write(f"\t{customer_address.get()}")
+                    file.write(f"{customer_address.get()} ")
                 i.set(False)
         #Write the order box
         for i in order_box.get(0, END):
-            file.write(json.dumps(i))
+            i = str(i).replace('"', '').replace("'", "").replace('(', '').replace(')','')
+            file.write(f"{i} ")
+        file.write(f"Taken by: {employee_name} ")
         #Add the time of order to file
         file.write(" " + str(datetime.now().strftime("%H:%M:%S")) +"\n")
         file.close()
@@ -599,8 +677,12 @@ class MenuPage(StartPage):
 
     def exit_fn(self):
         """Function to exit an order"""
+        global employee_name
         #Add logging
-
+        with open(os.path.join(__location__,"logs/employeeslog.txt"),
+            mode="a+", encoding="utf-8") as emp_file:
+            emp_file.write(f"{employee_name} has canceled the order\n")
+            emp_file.close()
 
         #Set frame variable back to false
         global PIZZA_FRAME_VAR, SIDE_FRAME_VAR, order_box
@@ -618,6 +700,7 @@ class MenuPage(StartPage):
         for i in CUSTOMER:
             i.set("")
         order_box.delete(0,END)
+        employee_name = "No one"
         self.controller.show_frame("StartPage")
 
     #Sides Frame
@@ -724,22 +807,35 @@ class ClockPage(CustomerPage):
             text="Exit", command=lambda: controller.show_frame("StartPage")).place(x=800,y=775)
 
         #label
-        label = Label(self,bg="blue",text="Enter your 4 digit employee pin")
-        label.place(x = 450, y = 400)
+        label = Label(self,bg="blue",font=("Arial", 30), text="Enter your 4 digit employee pin")
+        label.place(x = 225, y = 375)
 
         #enter employee number to log in
         global employee_pin
         employee_pin = Entry(self, width=10)
-        employee_pin.focus_set
+        employee_pin.focus_set()
         employee_pin.place(x = 450, y = 425)
 
-        #submit employee number
-        submit = Button(self,text = "Submit",command = self.validate_pin)
-        submit.place(x = 450, y = 450)
+        #start shift button
+        start_shift = Button(self, text = "Start shift", command = self.start_shift)
+        start_shift.place(x = 400, y = 450)
+
+        #start break button
+        start_break = Button(self, text = "Start break", command = self.start_break)
+        start_break.place(x = 480, y = 450)
+
+        #end break button
+        end_break = Button(self, text = "End break  ", command = self.end_break)
+        end_break.place(x = 480, y = 480)
+
+        #end shift button
+        end_shift = Button(self, text = "End shift  ", command = self.end_shift)
+        end_shift.place(x = 400, y = 480)
 
     def validate_pin(self):
         """Validating the Pin"""
         n = 0
+        global employee_name
         if employee_pin.get() == "":
             messagebox.showerror("Error", "Invalid pin. Please try again.")
             return
@@ -748,113 +844,68 @@ class ClockPage(CustomerPage):
             lines = file.readlines()
             for line in lines:
                 if employee_pin.get() in line:
-                    self.employee_name = re.split(r'\s+(?=\d)|(?<=\d)\s+', line)[0]
-                    self.time_clock()
+                    employee_name = re.split(r'\s+(?=\d)|(?<=\d)\s+', line)[0]
                     n = 1
         employee_pin.delete(0,END)
         #invalid pin error message
         if n != 1:
             messagebox.showerror("Error", "Invalid pin. Please try again.")
+            return n
+        return n
 
-    def time_clock(self):
-        """Funtion for Time Clock"""
-        self.timeClock = Toplevel()
-        self.timeClock.title("Time Clock")
-        self.timeClock.geometry("400x400")
-        self.timeClock.configure(background = "blue")
-
-        #start shift button
-        start_shift = Button(self.timeClock, text = "Start shift", command = self.start_shift)
-        start_shift.place(x = 100, y = 140)
-
-        #start break button
-        start_break = Button(self.timeClock, text = "Start break", command = self.start_break)
-        start_break.place(x = 200, y = 140)
-
-        #end break button
-        end_break = Button(self.timeClock, text = "End break  ", command = self.end_break)
-        end_break.place(x = 200, y = 170)
-
-        #end shift button
-        end_shift = Button(self.timeClock, text = "End shift  ", command = self.end_shift)
-        end_shift.place(x = 100, y = 170)
-
-        #view log
-        log = Button(self.timeClock, text = "Time clock log", command = self.view_log)
-        log.place(x = 140, y = 250)
-
-        tk.Button(self.timeClock,text="Quit",command=self.timeClock.destroy).place(x=355,y=375)
-
+    # def logged_in(self):
+    #     """Function to show you are logged in"""
+    #     if self.validate_pin() == 1:
+    #         messagebox.showinfo("Login", f"{employee_name} has successfully logged in.")
+    #         self.controller.show_frame("StartPage")
     def start_shift(self):
         """Function to start shift"""
         current_time = time.strftime("%H:%M:%S")
-
-        #open and write to file
-        file = open(os.path.join(__location__,"logs/employeeslog.txt"), "a+", encoding="utf-8")
-        file.write(f"\nClocking in: {str(date.today())} ")
-        file.write(f"{self.employee_name} ")
-        file.write(f"{str(current_time)}\n")
-        file.close()
-        self.timeClock.destroy()
-        self.controller.show_frame("StartPage")
+        if self.validate_pin() == 1:
+            #open and write to file
+            file = open(os.path.join(__location__,"logs/employeeslog.txt"), "a+", encoding="utf-8")
+            file.write(f"Clocking in: {str(date.today())} ")
+            file.write(f"{employee_name} ")
+            file.write(f"{str(current_time)}\n")
+            file.close()
+            messagebox.showinfo("Login", f"{employee_name} has successfully clocked in in.")
+            self.controller.show_frame("StartPage")
 
     def start_break(self):
         """Function to start break"""
         current_time = time.strftime("%H:%M:%S")
-
-        #open and write to file
-        file = open(os.path.join(__location__,"logs/employeeslog.txt"), "a", encoding="utf-8")
-        file.write("\nStart break\t")
-        file.write(f"{self.employee_name} ")
-        file.write(f"{str(current_time)}\n")
-        file.close()
-        self.timeClock.destroy()
-        self.controller.show_frame("StartPage")
+        if self.validate_pin() == 1:
+            #open and write to file
+            file = open(os.path.join(__location__,"logs/employeeslog.txt"), "a", encoding="utf-8")
+            file.write("Start break ")
+            file.write(f"{employee_name} ")
+            file.write(f"{str(current_time)}\n")
+            file.close()
+            self.controller.show_frame("StartPage")
 
     def end_break(self):
         """Function to end break"""
         current_time = time.strftime("%H:%M:%S")
-
-        #open and write to file
-        file = open(os.path.join(__location__,"logs/employeeslog.txt"), "a", encoding="utf-8")
-        file.write("\nEnd break\t")
-        file.write(f"{self.employee_name} ")
-        file.write(f"{str(current_time)}\n")
-        file.close()
-        self.timeClock.destroy()
-        self.controller.show_frame("StartPage")
+        if self.validate_pin() == 1:
+            #open and write to file
+            file = open(os.path.join(__location__,"logs/employeeslog.txt"), "a", encoding="utf-8")
+            file.write("End break ")
+            file.write(f"{employee_name} ")
+            file.write(f"{str(current_time)}\n")
+            file.close()
+            self.controller.show_frame("StartPage")
 
     def end_shift(self):
         """Function to end shift"""
         current_time = time.strftime("%H:%M:%S")
-
-        #open and write to file
-        file = open(os.path.join(__location__,"logs/employeeslog.txt"), "a", encoding="utf-8")
-        file.write("\nEnd shift ")
-        file.write(f"{self.employee_name} ")
-        file.write(f"{str(current_time)}\n")
-        file.close()
-        self.timeClock.destroy()
-        self.controller.show_frame("StartPage")
-
-    def view_log(self):
-        """Function to view the log"""
-        #open and read file
-        file = open(os.path.join(__location__,"logs/employeeslog.txt"), "r", encoding="utf-8")
-        emp_log_win = tk.Toplevel()
-        emp_log_win.title("Show Inventory")
-        emp_log_win.geometry("400x400")
-        emp_log_win.configure(background = "blue")
-        scrollbar=tk.Scrollbar(emp_log_win,orient=VERTICAL)
-        scrollbar.pack(side=RIGHT, fill=Y)
-        list_box=tk.Listbox(emp_log_win,background="blue",yscrollcommand=scrollbar.set,
-            borderwidth=0,highlightthickness=0)
-        lines= file.readlines()
-        for line in lines:
-            list_box.insert(END,line)
-        list_box.pack(side=LEFT,fill=BOTH,expand=TRUE)
-        scrollbar.config(command=list_box.yview)
-        file.close()
+        if self.validate_pin() == 1:
+            #open and write to file
+            file = open(os.path.join(__location__,"logs/employeeslog.txt"), "a", encoding="utf-8")
+            file.write("End shift ")
+            file.write(f"{employee_name} ")
+            file.write(f"{str(current_time)}\n")
+            file.close()
+            self.controller.show_frame("StartPage")
 
 class ManagerPage(ClockPage):
     """Class for Time Clock page"""
@@ -930,6 +981,7 @@ class ManagerPage(ClockPage):
                 lines = file.readlines()
         except FileNotFoundError:
             messagebox.showerror("File Not Found", "File not found")
+            return
         #Create new window to show order
         inv_win = tk.Toplevel()
         inv_win.title("Show Order")
