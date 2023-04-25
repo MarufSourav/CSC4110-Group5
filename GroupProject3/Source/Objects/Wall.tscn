@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://uf38ds0xo8kw"]
+
+[ext_resource type="Texture2D" uid="uid://b8muu68v05ywm" path="res://Texture/CastleTexture/stones.png" id="1_bua6q"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dtgea"]
+albedo_texture = ExtResource("1_bua6q")
+uv1_scale = Vector3(1.292, 0.91, 0.382)
+uv1_triplanar = true
+uv2_scale = Vector3(3, 2, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_egtnw"]
+material = SubResource("StandardMaterial3D_dtgea")
+size = Vector3(1, 2.5, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_deqaq"]
+size = Vector3(1, 2.5, 5)
+
+[node name="MeshInstance3D" type="MeshInstance3D"]
+mesh = SubResource("BoxMesh_egtnw")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_deqaq")

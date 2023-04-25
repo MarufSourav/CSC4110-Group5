@@ -1,0 +1,109 @@
+[gd_scene load_steps=13 format=3 uid="uid://baty4nhdpqdca"]
+
+[ext_resource type="Script" path="res://Script/Door.gd" id="1_tdeu4"]
+[ext_resource type="PackedScene" uid="uid://uf38ds0xo8kw" path="res://Objects/Wall.tscn" id="1_wdpo6"]
+[ext_resource type="Texture2D" uid="uid://bk30bocnpq5j0" path="res://Texture/red.png" id="2_0libd"]
+[ext_resource type="Texture2D" uid="uid://botkwbacu3r43" path="res://Texture/Door.jpg" id="4_hc80e"]
+[ext_resource type="AudioStream" uid="uid://bstbhwkcjrslv" path="res://Sound/click-button.mp3" id="5_kjill"]
+[ext_resource type="PackedScene" uid="uid://blh6kklb4lqyi" path="res://Objects/DialogTrigger.tscn" id="6_1d1ut"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_aus15"]
+size = Vector3(1.00174, 1.9024, 1.89767)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_riuks"]
+albedo_texture = ExtResource("2_0libd")
+
+[sub_resource type="BoxMesh" id="BoxMesh_fof5x"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cl0h4"]
+size = Vector3(1.83883, 4.75761, 2.4441)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k7qx4"]
+albedo_texture = ExtResource("4_hc80e")
+
+[sub_resource type="BoxMesh" id="BoxMesh_adtje"]
+
+[node name="Door" type="Node3D"]
+script = ExtResource("1_tdeu4")
+
+[node name="Top" parent="." instance=ExtResource("1_wdpo6")]
+transform = Transform3D(1, 0, 0, 0, 0.1, 0, 0, 0, 0.4, 0, 1.125, 0)
+
+[node name="Piller2" parent="." instance=ExtResource("1_wdpo6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.3, 0, 0, 1.75)
+
+[node name="Piller" parent="." instance=ExtResource("1_wdpo6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.3, 0, 0, -1.75)
+
+[node name="Collision" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Collision"]
+shape = SubResource("BoxShape3D_aus15")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.640543, 0.454267, 1.37808)
+light_color = Color(0.592157, 0, 0.160784, 1)
+light_energy = 0.042
+omni_range = 0.323
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.644376, 0.454267, -1.36769)
+light_color = Color(0.592157, 0, 0.160784, 1)
+light_energy = 0.042
+omni_range = 0.323
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Button" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0.518669, 0.439943, 1.37565)
+material_override = SubResource("StandardMaterial3D_riuks")
+mesh = SubResource("BoxMesh_fof5x")
+
+[node name="Area3D" type="Area3D" parent="Button"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Button/Area3D"]
+transform = Transform3D(1.565, 0, 0, 0, 1.565, 0, 0, 0, 1.565, 0, 0, 0)
+shape = SubResource("BoxShape3D_cl0h4")
+
+[node name="Button2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, -0.469711, 0.439943, -1.35442)
+material_override = SubResource("StandardMaterial3D_riuks")
+mesh = SubResource("BoxMesh_fof5x")
+
+[node name="Area3D" type="Area3D" parent="Button2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Button2/Area3D"]
+transform = Transform3D(1.565, 0, 0, 0, 1.565, 0, 0, 0, 1.565, 0, 0, 0)
+shape = SubResource("BoxShape3D_cl0h4")
+
+[node name="Door" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.148, 0, 0, 0, 2.267, 0, 0, 0, 2.024, 0, -0.1, 0)
+material_override = SubResource("StandardMaterial3D_k7qx4")
+mesh = SubResource("BoxMesh_adtje")
+
+[node name="door" type="AudioStreamPlayer3D" parent="."]
+volume_db = -18.771
+pitch_scale = 1.16
+
+[node name="click" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.177265, 0.389681, -0.00570476)
+stream = ExtResource("5_kjill")
+volume_db = -26.816
+max_db = -9.737
+pitch_scale = 1.16
+
+[node name="DialogTrigger" parent="." instance=ExtResource("6_1d1ut")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.26, 0.42, 1.34)
+needInteract = true
+textString = "Door Locked"
+
+[node name="DialogTrigger2" parent="." instance=ExtResource("6_1d1ut")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.202227, 0.375019, -1.36702)
+needInteract = true
+textString = "Door Locked"
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="Button/Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Button/Area3D" to="." method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="Button2/Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Button2/Area3D" to="." method="_on_area_3d_body_exited"]

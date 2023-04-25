@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://sh68dn4iygyg"]
+
+[ext_resource type="Script" path="res://Script/DoorWayLogic.gd" id="1_nmjpn"]
+[ext_resource type="PackedScene" uid="uid://uf38ds0xo8kw" path="res://Objects/Wall.tscn" id="2_winhi"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hto5m"]
+size = Vector3(0.5, 2, 2)
+
+[node name="DoorWay" type="Node3D"]
+script = ExtResource("1_nmjpn")
+
+[node name="Top" parent="." instance=ExtResource("2_winhi")]
+transform = Transform3D(1, 0, 0, 0, 0.1, 0, 0, 0, 0.4, 0, 1.125, 0)
+
+[node name="Piller2" parent="." instance=ExtResource("2_winhi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.3, 0, 0, 1.75)
+
+[node name="Piller" parent="." instance=ExtResource("2_winhi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.3, 0, 0, -1.75)
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
+shape = SubResource("BoxShape3D_hto5m")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_body_entered"]

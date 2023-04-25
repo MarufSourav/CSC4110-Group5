@@ -1,0 +1,30 @@
+[gd_scene load_steps=7 format=3 uid="uid://dmhcxlb6r3psp"]
+
+[ext_resource type="Texture2D" uid="uid://dxemewhivlob" path="res://Texture/leaves.jpg" id="1_qvbfo"]
+[ext_resource type="Texture2D" uid="uid://bpbwt0gwtle4s" path="res://Texture/treebark.jpg" id="2_jqh30"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_epxsg"]
+albedo_texture = ExtResource("1_qvbfo")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_5nf0e"]
+top_radius = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i7rkh"]
+albedo_texture = ExtResource("2_jqh30")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_0jd7q"]
+top_radius = 0.2
+bottom_radius = 0.2
+height = 0.817
+
+[node name="Tree" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+material_override = SubResource("StandardMaterial3D_epxsg")
+mesh = SubResource("CylinderMesh_5nf0e")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4, 0)
+material_override = SubResource("StandardMaterial3D_i7rkh")
+mesh = SubResource("CylinderMesh_0jd7q")

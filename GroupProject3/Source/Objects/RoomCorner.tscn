@@ -1,0 +1,94 @@
+[gd_scene load_steps=8 format=3 uid="uid://cai1v0a5yy4p1"]
+
+[ext_resource type="Texture2D" uid="uid://cq3whffw7k5cj" path="res://Texture/CastleTexture/planks.png" id="1_85ghe"]
+[ext_resource type="PackedScene" uid="uid://uf38ds0xo8kw" path="res://Objects/Wall.tscn" id="2_hqgq7"]
+[ext_resource type="Texture2D" uid="uid://1qgo2y2bqsge" path="res://Texture/CastleTexture/bricks.png" id="2_lg7ox"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_muonv"]
+albedo_texture = ExtResource("1_85ghe")
+uv1_triplanar = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_xfryr"]
+size = Vector2(15, 15)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8hs13"]
+size = Vector3(15, 0.001, 15)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dnk2d"]
+albedo_texture = ExtResource("2_lg7ox")
+uv1_triplanar = true
+
+[node name="RoomCorner" type="Node3D"]
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_muonv")
+mesh = SubResource("PlaneMesh_xfryr")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D"]
+shape = SubResource("BoxShape3D_8hs13")
+
+[node name="Ground2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 5, 0)
+material_override = SubResource("StandardMaterial3D_dnk2d")
+mesh = SubResource("PlaneMesh_xfryr")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground2/StaticBody3D"]
+shape = SubResource("BoxShape3D_8hs13")
+
+[node name="LeftWall" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8)
+
+[node name="MeshInstance3D9" parent="LeftWall" instance=ExtResource("2_hqgq7")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5, 1.25, 0)
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D10" parent="LeftWall" instance=ExtResource("2_hqgq7")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1.25, 0)
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D11" parent="LeftWall" instance=ExtResource("2_hqgq7")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5, 1.25, 0)
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D23" parent="LeftWall" instance=ExtResource("2_hqgq7")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5, 3.75, 0)
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D24" parent="LeftWall" instance=ExtResource("2_hqgq7")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 3.75, 0)
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D25" parent="LeftWall" instance=ExtResource("2_hqgq7")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5, 3.75, 0)
+skeleton = NodePath("../..")
+
+[node name="FarWall" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0)
+
+[node name="MeshInstance3D20" parent="FarWall" instance=ExtResource("2_hqgq7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.75, 5)
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D21" parent="FarWall" instance=ExtResource("2_hqgq7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.75, 0)
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D22" parent="FarWall" instance=ExtResource("2_hqgq7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.75, -5)
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D26" parent="FarWall" instance=ExtResource("2_hqgq7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 5)
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D34" parent="FarWall" instance=ExtResource("2_hqgq7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D35" parent="FarWall" instance=ExtResource("2_hqgq7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, -5)
+skeleton = NodePath("../..")

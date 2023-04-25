@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://dbst0d3xyrk7e"]
+
+[ext_resource type="AudioStream" uid="uid://otqvvk4k3eb6" path="res://Sound/soft-rain-ambient-111154.mp3" id="1_cgy6c"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tf5so"]
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 1.11
+
+[sub_resource type="BoxMesh" id="BoxMesh_qtdgf"]
+material = SubResource("StandardMaterial3D_tf5so")
+size = Vector3(0.01, 0.337, 0.01)
+
+[node name="CPUParticles3D" type="CPUParticles3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 0)
+amount = 700
+preprocess = 1.99
+mesh = SubResource("BoxMesh_qtdgf")
+emission_shape = 3
+emission_box_extents = Vector3(25, 1, 25)
+gravity = Vector3(0, -50, 0)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("1_cgy6c")
+volume_db = 20.559
+unit_size = 3.3
+autoplay = true
+max_distance = 91.53

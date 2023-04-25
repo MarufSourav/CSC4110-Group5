@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://blh6kklb4lqyi"]
+
+[ext_resource type="Script" path="res://Script/Dialog.gd" id="1_oay5m"]
+[ext_resource type="AudioStream" uid="uid://dni4lweu0dsyd" path="res://Sound/dialog.mp3" id="2_0sjbv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sc86k"]
+
+[node name="DialogTrigger" type="Area3D"]
+script = ExtResource("1_oay5m")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_sc86k")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -46.5
+offset_top = -26.0
+offset_right = 46.5
+grow_horizontal = 2
+grow_vertical = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Dialog" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_0sjbv")
+volume_db = -36.648
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
