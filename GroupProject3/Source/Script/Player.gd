@@ -5,31 +5,85 @@ var sprinting = true;
 var moving = false;
 var stamina = 5
 var mouse_sensitivity := 0.1
-@export var keyID = ""
+
+@export var walkSoundLoader = ""
+@export var runSoundLoader = ""
+@onready var walkAudio = $Walk
+@onready var runAudio = $Run
+@onready var restAudio = $Rest
+
+var movingState = false
+var sprintingState = false
+var restState = false
+var stateChanged = false;
+
 @onready var flashlightSound := $Flashlightclick
-#const JUMP_VELOCITY = 4.5
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var camera := $Camera3D
-@onready var walkAudio = $Walk
-@onready var runAudio = $Run
 @onready var flashlight = $Camera3D/SpotLight3D
+
+func _ready():
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+
 func _unhandled_input(event) -> void:
-	if event is InputEventMouseButton:
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	elif event.is_action_pressed("ui_cancel"):
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-		
+	if(event.is_action_pressed("restart")):
+		GlobalVar.freezePlayer = false
+		GlobalVar.canOpenInventory = true
+		GlobalVar.keyID = ""
+		GlobalVar.haveFlashLight = false
+		get_tree().reload_current_scene()
+	if(event.is_action_pressed("ui_cancel")):
+		get_tree().quit()
+	if event.is_action_pressed("inventory") and GlobalVar.canOpenInventory:
+		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			GlobalVar.freezePlayer = true
+		else:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+			GlobalVar.freezePlayer = false
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouseMotion:
-			camera.rotate_z(deg_to_rad(-event.relative.y * mouse_sensitivity))
-			rotate_y(deg_to_rad(-event.relative.x * mouse_sensitivity ))
-			camera.rotation_degrees.x = clamp(camera.rotation_degrees.x, -75, 75)
-		if Input.is_action_just_pressed("flashlight"):
+			if !GlobalVar.freezePlayer:
+				camera.rotate_z(deg_to_rad(-event.relative.y * mouse_sensitivity))
+				rotate_y(deg_to_rad(-event.relative.x * mouse_sensitivity ))
+				camera.rotation_degrees.x = clamp(camera.rotation_degrees.x, -75, 75)
+		if Input.is_action_just_pressed("flashlight") and GlobalVar.haveFlashLight:
 			flashlight.visible = !flashlight.visible
 			flashlightSound.play()
 
+
+func soundPass():
+	if moving != movingState:
+		stateChanged = true
+		movingState = moving
+	if sprinting != sprintingState:
+		stateChanged = true
+		sprintingState = sprinting
+	if REST != restState:
+		if REST:
+			restAudio.play()
+		restState = REST
+	
+	if stateChanged:
+		walkAudio.stream = load(walkSoundLoader)
+		runAudio.stream = load(runSoundLoader)
+		if moving:
+			if sprinting:
+				walkAudio.stop()
+				runAudio.play()
+			else:
+				walkAudio.play()
+				runAudio.stop()
+		else:
+			walkAudio.stop()
+			runAudio.stop()
+		stateChanged = false
+
+
 func _process(delta):
+	soundPass()
 	if velocity.x != 0 or velocity.z != 0:
 		moving = true
 	else:
@@ -56,17 +110,10 @@ func _process(delta):
 			REST = false
 
 func _physics_process(delta):
-	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-		if not is_on_floor():
-			velocity.y -= gravity * delta
- 
-	# Handle Jump.
-	# if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		# velocity.y = JUMP_VELOCITY
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
+	if not is_on_floor():
+		velocity.y -= gravity * delta
 	
+	if(!GlobalVar.freezePlayer):
 		var input_dir = Input.get_vector("move_backward", "move_forward", "move_left", "move_right")
 		var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 		if direction:
@@ -76,3 +123,6 @@ func _physics_process(delta):
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 			velocity.z = move_toward(velocity.z, 0, SPEED)
 		move_and_slide()
+	else:
+		moving = false
+		sprinting = false

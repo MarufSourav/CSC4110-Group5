@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cpwwd8lmj45pw"]
+[gd_scene load_steps=6 format=3 uid="uid://cpwwd8lmj45pw"]
 
 [ext_resource type="Script" path="res://Script/Player.gd" id="1_cu3sj"]
 [ext_resource type="AudioStream" uid="uid://7omx22l8m413" path="res://Sound/flashlightclicking.wav" id="2_tpg8e"]
+[ext_resource type="AudioStream" uid="uid://vtmqd3k5eh46" path="res://Sound/breathless-coughing.wav" id="3_r5wed"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_icafp"]
 
@@ -29,3 +30,11 @@ spot_angle = 29.0504
 [node name="Flashlightclick" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("2_tpg8e")
 volume_db = 4.624
+
+[node name="Walk" type="AudioStreamPlayer3D" parent="."]
+
+[node name="Run" type="AudioStreamPlayer3D" parent="."]
+
+[node name="Rest" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_r5wed")
+volume_db = -30.0

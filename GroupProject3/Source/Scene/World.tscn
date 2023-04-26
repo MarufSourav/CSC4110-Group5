@@ -1,7 +1,9 @@
-[gd_scene load_steps=22 format=3 uid="uid://g2bmwweu4d63"]
+[gd_scene load_steps=29 format=3 uid="uid://cqbtur7kf82ev"]
 
+[ext_resource type="Script" path="res://Script/WorldManager.gd" id="1_jvsde"]
 [ext_resource type="Texture2D" uid="uid://dt7pkhrngpm6d" path="res://Texture/skyCloud.jpg" id="1_xqwwo"]
 [ext_resource type="PackedScene" uid="uid://cpwwd8lmj45pw" path="res://Player/Player.tscn" id="2_ptrb0"]
+[ext_resource type="PackedScene" uid="uid://blh6kklb4lqyi" path="res://Objects/DialogTrigger.tscn" id="2_r5w0i"]
 [ext_resource type="PackedScene" uid="uid://d2qgxls10vvfx" path="res://Objects/Room.tscn" id="3_fiyn6"]
 [ext_resource type="PackedScene" uid="uid://2hfkrgw8sb5f" path="res://Objects/Lounge.tscn" id="4_fdgya"]
 [ext_resource type="PackedScene" uid="uid://baty4nhdpqdca" path="res://Objects/Door.tscn" id="4_ow3iv"]
@@ -10,21 +12,13 @@
 [ext_resource type="Texture2D" uid="uid://daktpknjx4bn7" path="res://Texture/grass.jpg" id="8_wcd2i"]
 [ext_resource type="PackedScene" uid="uid://dmhcxlb6r3psp" path="res://Objects/Tree.tscn" id="9_h6wtp"]
 [ext_resource type="Texture2D" uid="uid://bly0rxchsb1x8" path="res://Texture/black.png" id="10_82bg2"]
+[ext_resource type="PackedScene" uid="uid://iqsrwf5xuwk0" path="res://Objects/Key.tscn" id="11_b4vvd"]
+[ext_resource type="PackedScene" uid="uid://cpp435gsdg330" path="res://Objects/FlashLightThunder.tscn" id="14_dt8uf"]
+[ext_resource type="AudioStream" uid="uid://cnpakiwhx70lx" path="res://Sound/giggling.wav" id="15_jd7gy"]
+[ext_resource type="PackedScene" uid="uid://tncmemwxmfcg" path="res://Objects/FlashLight.tscn" id="15_ymyi5"]
 
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_8vr3t"]
-panorama = ExtResource("1_xqwwo")
-
-[sub_resource type="Sky" id="Sky_u1a57"]
-sky_material = SubResource("PanoramaSkyMaterial_8vr3t")
-radiance_size = 1
-
-[sub_resource type="Environment" id="Environment_ivevc"]
-background_mode = 2
-sky = SubResource("Sky_u1a57")
-sky_rotation = Vector3(0, 0, -4.66701)
-ambient_light_sky_contribution = 0.23
-tonemap_mode = 2
-glow_enabled = true
+[sub_resource type="BoxShape3D" id="BoxShape3D_865oa"]
+size = Vector3(2.34698, 1, 0.491706)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7d3ab"]
 albedo_texture = ExtResource("8_wcd2i")
@@ -51,10 +45,39 @@ albedo_texture = ExtResource("8_wcd2i")
 [sub_resource type="PlaneMesh" id="PlaneMesh_473bu"]
 size = Vector2(130, 100)
 
-[node name="World" type="Node3D"]
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_8vr3t"]
+panorama = ExtResource("1_xqwwo")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_ivevc")
+[sub_resource type="Sky" id="Sky_u1a57"]
+sky_material = SubResource("PanoramaSkyMaterial_8vr3t")
+radiance_size = 1
+
+[sub_resource type="Environment" id="Environment_ivevc"]
+background_mode = 2
+sky = SubResource("Sky_u1a57")
+sky_rotation = Vector3(0, 0, -4.66701)
+ambient_light_sky_contribution = 0.23
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="World" type="Node3D"]
+script = ExtResource("1_jvsde")
+
+[node name="EventTrigger" type="Node3D" parent="."]
+
+[node name="Event1" type="Area3D" parent="EventTrigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 32.1045)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EventTrigger/Event1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.732914)
+shape = SubResource("BoxShape3D_865oa")
+
+[node name="DialogTrigger" parent="EventTrigger" instance=ExtResource("2_r5w0i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0298781, 0.675264, 31.1172)
+oneShot = true
+freeze = true
+needInteract = false
+textString = "huh?"
 
 [node name="Room" parent="." instance=ExtResource("3_fiyn6")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -24.8474, 0, 10.0576)
@@ -97,10 +120,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.8474, 1.25, 10.0576)
 
 [node name="Door7" parent="." instance=ExtResource("4_ow3iv")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.652569, 1.25, 17.0576)
+isOpen = true
+doorLocked = true
+doorID = "2"
 
 [node name="Door10" parent="." instance=ExtResource("4_ow3iv")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.15257, 1.25, 33.0576)
-doorID = "2"
+doorLocked = true
+doorID = "1"
+
+[node name="DialogTrigger3" parent="Door10" instance=ExtResource("2_r5w0i")]
+transform = Transform3D(-1.82276e-08, 0, -1, 0, 1, 0, 0.417, 0, -4.37114e-08, 0.34, 3.23351, 1.36)
+textString = "I can't get out!"
 
 [node name="CPUParticles3D" parent="." instance=ExtResource("6_20yhv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.51923, 17.6997, 58.2167)
@@ -110,8 +141,9 @@ speed_scale = 1.76
 randomness = 0.35
 
 [node name="Player" parent="." instance=ExtResource("2_ptrb0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0935576, 1.07791, 39.389)
-keyID = "0"
+transform = Transform3D(0.0263339, 0, 0.999653, 0, 1, 0, -0.999653, 0, 0.0263339, -2.57802, 1.07791, 44.8833)
+walkSoundLoader = "res://Sound/outdoor-footsteps-walk.wav"
+runSoundLoader = "res://Sound/outdoor-footsteps-run.wav"
 
 [node name="Light" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.1526, 0, 25.0576)
@@ -597,3 +629,29 @@ mesh = SubResource("PlaneMesh_473bu")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82.5207, -0.1, -16)
 material_override = SubResource("StandardMaterial3D_tfqyf")
 mesh = SubResource("PlaneMesh_473bu")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ivevc")
+
+[node name="Key" parent="." instance=ExtResource("11_b4vvd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.980015, 0.0624838, 36.7442)
+keyID = "1"
+
+[node name="FlashLightThunder" parent="." instance=ExtResource("14_dt8uf")]
+transform = Transform3D(0.95077, -0.309897, -1.3546e-08, 0, -4.37114e-08, 1, -0.309897, -0.95077, -4.15595e-08, 3.72645, 1.00579, 26.0142)
+
+[node name="FlashLight" parent="." instance=ExtResource("15_ymyi5")]
+transform = Transform3D(0.0868601, 0.99622, 0, -0.99622, 0.0868601, 0, 0, 0, 1, -5.90861, 0.105489, 23.9324)
+
+[node name="NodeFreeTimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="giggling" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.613137, 2.369, -1.28838)
+stream = ExtResource("15_jd7gy")
+volume_db = 12.023
+unit_size = 3.65
+panning_strength = 2.02
+
+[connection signal="body_entered" from="EventTrigger/Event1" to="." method="_on_event_1_body_entered"]
+[connection signal="timeout" from="NodeFreeTimer" to="." method="_on_node_free_timer_timeout"]

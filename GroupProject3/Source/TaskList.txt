@@ -1,0 +1,12 @@
+World
+- Finish World Design (D)
+- Create Game World Logic i.e (which door needs to be locked or not)
+- Finish Lighting the world
+
+Player
+- Create Movement (D)
+- Make Player only sprint for 5 secs, after that Player becomes extremly slow (D)
+
+- When pressed "Tab", A window of gird 3x3 will pop up (Inventory) and the mouse will unlock
+
+- Depending on if Player has a gun in the inventory, The gun Node can be used

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dryy3muxupaek"]
+
+[ext_resource type="AudioStream" uid="uid://5j1n2xcufv48" path="res://Sound/thunder.wav" id="1_xuu04"]
+
+[node name="Thunder" type="AudioStreamPlayer"]
+stream = ExtResource("1_xuu04")
+volume_db = 8.134
+mix_target = 1

@@ -1,0 +1,64 @@
+[gd_scene load_steps=7 format=3 uid="uid://cpp435gsdg330"]
+
+[ext_resource type="Script" path="res://Script/FlashLightThunder.gd" id="1_cm80s"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4ksl4"]
+albedo_color = Color(0, 0, 0, 1)
+metallic = 0.2
+metallic_specular = 1.0
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_qti6f"]
+material = SubResource("StandardMaterial3D_4ksl4")
+top_radius = 0.06
+bottom_radius = 0.06
+height = 0.447
+cap_top = false
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1gqju"]
+albedo_color = Color(0, 0, 0, 1)
+metallic = 0.2
+metallic_specular = 1.0
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_52c54"]
+material = SubResource("StandardMaterial3D_1gqju")
+top_radius = 0.106
+bottom_radius = 0.0
+height = 0.225
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_35gh7"]
+
+[node name="FlashLight" type="MeshInstance3D"]
+mesh = SubResource("CylinderMesh_qti6f")
+script = ExtResource("1_cm80s")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.196475, 0)
+mesh = SubResource("CylinderMesh_52c54")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_35gh7")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.351054, 0)
+light_energy = 4.161
+shadow_enabled = true
+spot_range = 128.994
+spot_angle = 29.0504
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 130.466, -285.685)
+visible = false
+sky_mode = 1
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.141
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

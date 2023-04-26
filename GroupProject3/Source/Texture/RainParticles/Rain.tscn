@@ -22,7 +22,7 @@ gravity = Vector3(0, -50, 0)
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("1_cgy6c")
-volume_db = 20.559
+volume_db = 14.302
 unit_size = 3.3
 autoplay = true
 max_distance = 91.53
