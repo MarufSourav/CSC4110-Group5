@@ -11,8 +11,8 @@ var mouse_sensitivity := 0.1
 @onready var walkAudio = $Walk
 @onready var runAudio = $Run
 @onready var restAudio = $Rest
-@onready var handGun = $Camera3D/Fire/HandGun
-@onready var fireMovement = $Camera3D/Fire
+@onready var handGun = $CameraHolder/Camera3D/Fire/HandGun
+@onready var fireMovement = $CameraHolder/Camera3D/Fire
 
 var movingState = false
 var sprintingState = false
@@ -22,8 +22,8 @@ var stateChanged = false;
 @onready var flashlightSound := $Flashlightclick
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
-@onready var camera := $Camera3D
-@onready var flashlight = $Camera3D/SpotLight3D
+@onready var camera := $CameraHolder
+@onready var flashlight = $CameraHolder/Camera3D/SpotLight3D
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -50,7 +50,7 @@ func _unhandled_input(event) -> void:
 			if !GlobalVar.freezePlayer:
 				camera.rotate_z(deg_to_rad(-event.relative.y * mouse_sensitivity))
 				rotate_y(deg_to_rad(-event.relative.x * mouse_sensitivity ))
-				camera.rotation_degrees.x = clamp(camera.rotation_degrees.x, -75, 75)
+				camera.rotation_degrees.z = clamp(camera.rotation_degrees.z, -75, 75)
 		if Input.is_action_just_pressed("flashlight") and GlobalVar.haveFlashLight:
 			flashlight.visible = !flashlight.visible
 			flashlightSound.play()
@@ -72,16 +72,16 @@ func soundPass():
 		walkAudio.stream = load(walkSoundLoader)
 		runAudio.stream = load(runSoundLoader)
 		if moving:
-			$Camera3D/AnimationPlayer.play("HeadBob")
+			$CameraHolder/Camera3D/AnimationPlayer.play("HeadBob")
 			if sprinting:
-				$Camera3D/AnimationPlayer.play("HeadBobFAST")
+				$CameraHolder/Camera3D/AnimationPlayer.play("HeadBobFAST")
 				walkAudio.stop()
 				runAudio.play()
 			else:
 				walkAudio.play()
 				runAudio.stop()
 		else:
-			$Camera3D/AnimationPlayer.stop()
+			$CameraHolder/Camera3D/AnimationPlayer.stop()
 			walkAudio.stop()
 			runAudio.stop()
 		stateChanged = false
@@ -98,8 +98,8 @@ func _process(delta):
 		
 	if(Input.is_action_just_pressed("FIRE")):
 		print("Fired")
-		$Camera3D/Fire/HandGun.gunFlash = true
-		$Camera3D/AnimationPlayer.play("screenShake")
+		$CameraHolder/Camera3D/Fire/HandGun.gunFlash = true
+		$CameraHolder/Camera3D/AnimationPlayer.play("screenShake")
 		fireMovement.position = lerp(fireMovement.position, Vector3(0, -0.05, 0.6), 10 * delta)
 		fireMovement.rotation_degrees = lerp(fireMovement.rotation_degrees, Vector3(7, 0, 0), 70 * delta)
 	else:
