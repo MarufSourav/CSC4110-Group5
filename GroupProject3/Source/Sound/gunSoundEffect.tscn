@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://inp5e543ttow"]
+
+[ext_resource type="AudioStream" uid="uid://dfwyutykmm34f" path="res://Sound/pistolSoundEffect.wav" id="1_0kw0h"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer"]
+stream = ExtResource("1_0kw0h")

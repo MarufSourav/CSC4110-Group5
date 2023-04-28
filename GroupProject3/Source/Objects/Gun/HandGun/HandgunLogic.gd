@@ -1,15 +1,21 @@
-extends MeshInstance3D
-@export var gunFlash = false
-var activated = false
-
+extends MeshInstance3D 
+@export var fired = false
+@export var ammo = 5
+@export var readyToFire = true
 func _process(_delta):
-	if gunFlash and !activated:
-		$OmniLight3D.light_energy = 10
-		activated = true
-		$Timer.start()
+	if fired and readyToFire:
+		fired = false
+		readyToFire = false
+		$"/root/GunSoundEffect".play()
+		$OmniLight3D.light_energy = 4
+		$muzzleFlash.start()
+		$ROF.start()
 
-func _on_timer_timeout():
-	$Timer.stop()
+func _on_muzzle_flash_timeout():
+	$muzzleFlash.stop()
 	$OmniLight3D.light_energy = 0
-	gunFlash = false
-	activated = false
+
+func _on_rof_timeout():
+	readyToFire = true
+	$ROF.stop()
+

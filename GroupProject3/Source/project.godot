@@ -21,6 +21,7 @@ config/icon="res://icon.svg"
 GlobalVar="*res://Script/global_var.gd"
 Confirmation="*res://Sound/Confirmation.tscn"
 Thunder="*res://Sound/Thunder.tscn"
+GunSoundEffect="*res://Sound/gunSoundEffect.tscn"
 
 [display]
 

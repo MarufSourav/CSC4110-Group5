@@ -13,7 +13,7 @@ material_override = SubResource("StandardMaterial3D_lb3mn")
 mesh = ExtResource("2_mvuvt")
 script = ExtResource("3_hpevo")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="muzzleFlash" type="Timer" parent="."]
 wait_time = 0.1
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
@@ -24,6 +24,10 @@ light_indirect_energy = 8.924
 light_volumetric_fog_energy = 8.513
 light_bake_mode = 1
 shadow_enabled = true
-omni_range = 24.354
+omni_range = 25.0
 
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[node name="ROF" type="Timer" parent="."]
+wait_time = 0.2
+
+[connection signal="timeout" from="muzzleFlash" to="." method="_on_muzzle_flash_timeout"]
+[connection signal="timeout" from="ROF" to="." method="_on_rof_timeout"]

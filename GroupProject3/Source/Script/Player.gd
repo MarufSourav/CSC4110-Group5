@@ -13,6 +13,7 @@ var mouse_sensitivity := 0.1
 @onready var restAudio = $Rest
 @onready var handGun = $CameraHolder/Camera3D/Fire/HandGun
 @onready var fireMovement = $CameraHolder/Camera3D/Fire
+@onready var inventory
 
 var movingState = false
 var sprintingState = false
@@ -72,16 +73,13 @@ func soundPass():
 		walkAudio.stream = load(walkSoundLoader)
 		runAudio.stream = load(runSoundLoader)
 		if moving:
-			$CameraHolder/Camera3D/AnimationPlayer.play("HeadBob")
 			if sprinting:
-				$CameraHolder/Camera3D/AnimationPlayer.play("HeadBobFAST")
 				walkAudio.stop()
 				runAudio.play()
 			else:
 				walkAudio.play()
 				runAudio.stop()
 		else:
-			$CameraHolder/Camera3D/AnimationPlayer.stop()
 			walkAudio.stop()
 			runAudio.stop()
 		stateChanged = false
@@ -96,15 +94,16 @@ func _process(delta):
 		handGun.position = lerp(handGun.position, Vector3(0,-0.25, -0.35), 7 * delta)
 		handGun.rotation_degrees = lerp(handGun.rotation_degrees, Vector3(0,-180, -30), 7 * delta)
 		
-	if(Input.is_action_just_pressed("FIRE")):
+	if(Input.is_action_just_pressed("FIRE") and handGun.readyToFire):
 		print("Fired")
-		$CameraHolder/Camera3D/Fire/HandGun.gunFlash = true
+		handGun.fired = true
+		handGun.ammo -= 1
 		$CameraHolder/Camera3D/AnimationPlayer.play("screenShake")
 		fireMovement.position = lerp(fireMovement.position, Vector3(0, -0.05, 0.6), 10 * delta)
 		fireMovement.rotation_degrees = lerp(fireMovement.rotation_degrees, Vector3(7, 0, 0), 70 * delta)
 	else:
 		fireMovement.position = lerp(fireMovement.position, Vector3(0, 0, 0), 10 * delta)
-		fireMovement.rotation_degrees = lerp(fireMovement.rotation_degrees, Vector3(0, 0, 0), 10 * delta)
+		fireMovement.rotation_degrees = lerp(fireMovement.rotation_degrees, Vector3(0, 0, 0), 5 * delta)
 	
 	if velocity.x != 0 or velocity.z != 0:
 		moving = true

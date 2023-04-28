@@ -105,6 +105,9 @@ textString = "Door Locked"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.202227, 0.375019, -1.36702)
 textString = "Door Locked"
 
+[node name="ROF" type="Timer" parent="."]
+wait_time = 0.5
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="body_entered" from="Button/Area3D" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="Button/Area3D" to="." method="_on_area_3d_body_exited"]
