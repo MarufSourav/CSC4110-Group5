@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://c70npl3qd637h"]
+
+[ext_resource type="Texture2D" uid="uid://bc3ds2v02ogwo" path="res://Objects/Gun/HandGun/texture.png" id="1_fsf6m"]
+[ext_resource type="ArrayMesh" uid="uid://k3k31m3edia5" path="res://Objects/Gun/HandGun/HandGun.obj" id="2_mvuvt"]
+[ext_resource type="Script" path="res://Objects/Gun/HandGun/HandgunLogic.gd" id="3_hpevo"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lb3mn"]
+albedo_texture = ExtResource("1_fsf6m")
+
+[node name="HandGun" type="MeshInstance3D"]
+transform = Transform3D(0.12, 0, 0, 0, 0.12, 0, 0, 0, 0.12, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_lb3mn")
+mesh = ExtResource("2_mvuvt")
+script = ExtResource("3_hpevo")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(8.33333, 0, 0, 0, 8.33333, 0, 0, 0, 8.33333, 0, 0.936681, 2.90201)
+light_color = Color(1, 0.615686, 0.254902, 1)
+light_energy = 0.0
+light_indirect_energy = 8.924
+light_volumetric_fog_energy = 8.513
+light_bake_mode = 1
+shadow_enabled = true
+omni_range = 24.354
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
