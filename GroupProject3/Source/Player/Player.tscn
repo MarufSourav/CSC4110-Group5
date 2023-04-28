@@ -38,3 +38,6 @@ volume_db = 4.624
 [node name="Rest" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("3_r5wed")
 volume_db = -30.0
+
+[node name="DropZone" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.88325, -0.983013, 0)
