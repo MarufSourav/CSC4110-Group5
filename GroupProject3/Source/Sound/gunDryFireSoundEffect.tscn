@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://77bfn8xodk1x"]
+
+[ext_resource type="AudioStream" uid="uid://bmcqkr267bt2v" path="res://Sound/dry-firing.mp3" id="1_eyram"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer"]
+stream = ExtResource("1_eyram")

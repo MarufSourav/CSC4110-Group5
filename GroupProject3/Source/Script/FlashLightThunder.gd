@@ -9,7 +9,7 @@ func _on_area_3d_body_exited(body):
 	if body is CharacterBody3D:
 		bodyOnTrigger = false
 
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_just_pressed("interact") and bodyOnTrigger:
 		bodyOnTrigger = false
 		$Timer.start()

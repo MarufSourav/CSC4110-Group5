@@ -22,6 +22,8 @@ GlobalVar="*res://Script/global_var.gd"
 Confirmation="*res://Sound/Confirmation.tscn"
 Thunder="*res://Sound/Thunder.tscn"
 GunSoundEffect="*res://Sound/gunSoundEffect.tscn"
+GunDryFireSoundEffect="*res://Sound/gunDryFireSoundEffect.tscn"
+GunReloadEffect="*res://Sound/gunReloadEffect.tscn"
 
 [display]
 
@@ -90,5 +92,10 @@ ADS={
 FIRE={
 "deadzone": 0.5,
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":1,"position":Vector2(161, 17),"global_position":Vector2(165, 60),"factor":1.0,"button_index":1,"pressed":true,"double_click":false,"script":null)
+]
+}
+reload={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":82,"key_label":0,"unicode":114,"echo":false,"script":null)
 ]
 }

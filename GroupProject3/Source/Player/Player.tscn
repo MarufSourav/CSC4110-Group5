@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://cpwwd8lmj45pw"]
+[gd_scene load_steps=10 format=3 uid="uid://cpwwd8lmj45pw"]
 
 [ext_resource type="Script" path="res://Script/Player.gd" id="1_cu3sj"]
 [ext_resource type="PackedScene" uid="uid://c70npl3qd637h" path="res://Objects/Gun/HandGun/hand_gun.tscn" id="2_6um3n"]
 [ext_resource type="AudioStream" uid="uid://7omx22l8m413" path="res://Sound/flashlightclicking.wav" id="2_tpg8e"]
 [ext_resource type="AudioStream" uid="uid://vtmqd3k5eh46" path="res://Sound/breathless-coughing.wav" id="3_r5wed"]
+[ext_resource type="PackedScene" uid="uid://bney3d5gxpja0" path="res://Objects/inventory.tscn" id="5_qs8u4"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ex6k5"]
 radius = 0.702669
@@ -90,6 +91,10 @@ transform = Transform3D(1, 0, 0, 0, 0.992546, -0.121869, 0, 0.121869, 0.992546, 
 [node name="HandGun" parent="CameraHolder/Camera3D/Fire" instance=ExtResource("2_6um3n")]
 transform = Transform3D(-0.12, 0, 1.04907e-08, 0, 0.12, 0, -1.04907e-08, 0, -0.12, 0, -0.155, -0.35)
 skeleton = NodePath("../..")
+ammo = 8
+
+[node name="BulletSpawner" type="Node3D" parent="CameraHolder/Camera3D/Fire/HandGun"]
+transform = Transform3D(0.999998, 1.10845e-12, -6.82121e-12, -7.10543e-13, 0.999997, -8.1958e-08, -7.27596e-12, 8.19548e-08, 0.999997, 3.08659e-06, 1.03206, 3.52336)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="CameraHolder/Camera3D"]
 transform = Transform3D(1, 0, -2.73559e-13, 0, 1, 0, 2.73559e-13, 0, 1, 2.00963e-09, 0.028793, 0.0459766)
@@ -103,3 +108,11 @@ spot_angle = 29.0504
 libraries = {
 "": SubResource("AnimationLibrary_a8vtw")
 }
+
+[node name="Inventory" parent="." instance=ExtResource("5_qs8u4")]
+visible = false
+
+[node name="ReloadEndTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[connection signal="timeout" from="ReloadEndTimer" to="." method="_on_reload_end_timer_timeout"]

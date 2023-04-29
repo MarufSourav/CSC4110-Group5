@@ -634,14 +634,14 @@ mesh = SubResource("PlaneMesh_473bu")
 environment = SubResource("Environment_ivevc")
 
 [node name="Key" parent="." instance=ExtResource("11_b4vvd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.980015, 0.0624838, 36.7442)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.980015, 0.0624838, 36.1994)
 keyID = "1"
 
 [node name="FlashLightThunder" parent="." instance=ExtResource("14_dt8uf")]
 transform = Transform3D(0.95077, -0.309897, -1.3546e-08, 0, -4.37114e-08, 1, -0.309897, -0.95077, -4.15595e-08, 3.72645, 1.00579, 26.0142)
 
 [node name="FlashLight" parent="." instance=ExtResource("15_ymyi5")]
-transform = Transform3D(0.0868601, 0.99622, 0, -0.99622, 0.0868601, 0, 0, 0, 1, -5.90861, 0.105489, 23.9324)
+transform = Transform3D(0.0868601, 0.99622, 0, -0.99622, 0.0868601, 0, 0, 0, 1, -7.16645, 0.105489, 36.9546)
 
 [node name="NodeFreeTimer" type="Timer" parent="."]
 wait_time = 5.0

@@ -35,7 +35,7 @@ func doorAudioLogic():
 			doorAudio.play()
 			doorState = false
 
-func _unhandled_input(event) -> void:
+func _unhandled_input(_event) -> void:
 	if Input.is_action_just_pressed("interact") and onTrigger and buttonActive:
 		if doorID == keyID:
 			dialogTrigger1.queue_free()
