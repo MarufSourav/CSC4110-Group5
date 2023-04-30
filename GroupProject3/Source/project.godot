@@ -24,12 +24,14 @@ Thunder="*res://Sound/Thunder.tscn"
 GunSoundEffect="*res://Sound/gunSoundEffect.tscn"
 GunDryFireSoundEffect="*res://Sound/gunDryFireSoundEffect.tscn"
 GunReloadEffect="*res://Sound/gunReloadEffect.tscn"
+Declined="*res://Sound/Declined.tscn"
+Hit="*res://Sound/HIT.tscn"
+LurkingSound="*res://Sound/LurkingSound.tscn"
 
 [display]
 
 window/size/viewport_width=320
 window/size/viewport_height=180
-window/size/mode=2
 window/size/resizable=false
 window/size/always_on_top=true
 window/size/window_width_override=1280

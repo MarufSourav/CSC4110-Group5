@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bot4v6vti0sc4"]
+
+[ext_resource type="AudioStream" uid="uid://ddogbiihjg86c" path="res://Sound/declined.wav" id="1_cu8vj"]
+
+[node name="Declined" type="AudioStreamPlayer"]
+stream = ExtResource("1_cu8vj")
+volume_db = -3.583

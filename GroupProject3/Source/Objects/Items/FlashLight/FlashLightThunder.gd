@@ -12,12 +12,15 @@ func _on_area_3d_body_exited(body):
 func _process(_delta):
 	if Input.is_action_just_pressed("interact") and bodyOnTrigger:
 		bodyOnTrigger = false
-		$Timer.start()
+		GlobalVar.invArray.append("flashlight")
+		GlobalVar.invAmmount += 1
 		GlobalVar.haveFlashLight = true
+		$DirectionalLight3D.visible = true
 		Confirmation.play()
 		Thunder.play()
-		$DirectionalLight3D.visible = true
+		$Timer.start()
 
 
 func _on_timer_timeout():
+	$DirectionalLight3D.visible = false
 	queue_free()

@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://6xw43bdev6ui"]
+
+[ext_resource type="ArrayMesh" uid="uid://egnr1fepo37f" path="res://Objects/Items/Key/key_with_tag.obj" id="1_cookg"]
+[ext_resource type="Script" path="res://Objects/Items/Key/KeyLogic.gd" id="2_cgne1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hkmyh"]
+albedo_color = Color(0, 0, 0, 1)
+emission_enabled = true
+emission = Color(0.890196, 0, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_q6pyg"]
+size = Vector3(0.163971, 0.176834, 0.234582)
+
+[node name="Key" type="MeshInstance3D"]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_hkmyh")
+mesh = ExtResource("1_cookg")
+script = ExtResource("2_cgne1")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.100214, 0)
+shape = SubResource("BoxShape3D_q6pyg")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_body_exited"]

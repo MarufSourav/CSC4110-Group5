@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bunyrxrqjlrw8"]
+
+[ext_resource type="Texture2D" uid="uid://csyulh32ueso" path="res://Texture/ItemSprite/flashlight.png" id="1_a8856"]
+
+[node name="flashlight" type="Sprite2D"]
+position = Vector2(9, 9)
+texture = ExtResource("1_a8856")

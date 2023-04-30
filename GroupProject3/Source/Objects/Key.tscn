@@ -1,33 +1,25 @@
-[gd_scene load_steps=6 format=3 uid="uid://iqsrwf5xuwk0"]
+[gd_scene load_steps=5 format=3 uid="uid://chbsr72evwupd"]
 
-[ext_resource type="Script" path="res://Script/KeyLogic.gd" id="1_jt4r7"]
-[ext_resource type="PackedScene" uid="uid://blh6kklb4lqyi" path="res://Objects/DialogTrigger.tscn" id="2_wmlmt"]
+[ext_resource type="ArrayMesh" uid="uid://e6cymjcmtldw" path="res://Objects/key_with_tag.obj" id="1_j86bf"]
+[ext_resource type="Script" path="res://Objects/Items/Key/KeyLogic.gd" id="2_voi87"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x6wbp"]
-albedo_color = Color(1, 0, 0, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_07sgm"]
 emission_enabled = true
-emission = Color(1, 0, 0, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_vpni6"]
-material = SubResource("StandardMaterial3D_x6wbp")
-size = Vector3(0.2, 0.05, 0.5)
+emission = Color(1, 1, 1, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_q6pyg"]
-size = Vector3(0.8, 0.4, 0.8)
+size = Vector3(0.174949, 0.20226, 0.181571)
 
 [node name="Key" type="MeshInstance3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, 0)
-mesh = SubResource("BoxMesh_vpni6")
-script = ExtResource("1_jt4r7")
-
-[node name="DialogTrigger" parent="." instance=ExtResource("2_wmlmt")]
-transform = Transform3D(0.8, 0, 0, 0, 1, 0, 0, 0, 0.8, 0, 0.475, 0)
-textString = "Key Found"
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_07sgm")
+mesh = ExtResource("1_j86bf")
+script = ExtResource("2_voi87")
 
 [node name="Area3D" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.174764, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0911773, 0)
 shape = SubResource("BoxShape3D_q6pyg")
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_body_entered"]

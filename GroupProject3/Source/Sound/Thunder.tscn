@@ -4,5 +4,5 @@
 
 [node name="Thunder" type="AudioStreamPlayer"]
 stream = ExtResource("1_xuu04")
-volume_db = 8.134
+volume_db = 2.717
 mix_target = 1

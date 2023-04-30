@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cvd1qcrsxadqw"]
+
+[ext_resource type="Texture2D" uid="uid://ddvl1t7pb5jtx" path="res://Texture/ItemSprite/key.png" id="1_0axdw"]
+
+[node name="key" type="Sprite2D"]
+position = Vector2(9, 9)
+texture = ExtResource("1_0axdw")

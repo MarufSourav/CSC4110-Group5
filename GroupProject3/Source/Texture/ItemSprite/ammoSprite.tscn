@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfobrq0nsarut"]
+
+[ext_resource type="Texture2D" uid="uid://diyg5uaygk3th" path="res://Texture/ItemSprite/ammo.png" id="1_1qcd0"]
+
+[node name="ammo" type="Sprite2D"]
+position = Vector2(9, 9)
+texture = ExtResource("1_1qcd0")

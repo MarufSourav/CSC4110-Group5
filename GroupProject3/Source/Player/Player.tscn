@@ -86,12 +86,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.852536, 0)
 transform = Transform3D(-3.61999e-06, 0, -1, 0, 1, 0, 1, 0, -3.61999e-06, 0, 0, 0)
 
 [node name="Fire" type="Node3D" parent="CameraHolder/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 0.992546, -0.121869, 0, 0.121869, 0.992546, 0, -0.1, 0)
 
 [node name="HandGun" parent="CameraHolder/Camera3D/Fire" instance=ExtResource("2_6um3n")]
-transform = Transform3D(-0.12, 0, 1.04907e-08, 0, 0.12, 0, -1.04907e-08, 0, -0.12, 0, -0.155, -0.35)
+transform = Transform3D(-0.103923, -0.06, 1.04907e-08, -0.06, 0.103923, 0, -9.08524e-09, -5.24537e-09, -0.12, 0, -0.3, -0.35)
 skeleton = NodePath("../..")
-ammo = 8
 
 [node name="BulletSpawner" type="Node3D" parent="CameraHolder/Camera3D/Fire/HandGun"]
 transform = Transform3D(0.999998, 1.10845e-12, -6.82121e-12, -7.10543e-13, 0.999997, -8.1958e-08, -7.27596e-12, 8.19548e-08, 0.999997, 3.08659e-06, 1.03206, 3.52336)
@@ -99,10 +97,10 @@ transform = Transform3D(0.999998, 1.10845e-12, -6.82121e-12, -7.10543e-13, 0.999
 [node name="SpotLight3D" type="SpotLight3D" parent="CameraHolder/Camera3D"]
 transform = Transform3D(1, 0, -2.73559e-13, 0, 1, 0, 2.73559e-13, 0, 1, 2.00963e-09, 0.028793, 0.0459766)
 visible = false
-light_energy = 4.161
+light_energy = 4.0
 shadow_enabled = true
-spot_range = 128.994
-spot_angle = 29.0504
+spot_range = 130.0
+spot_angle = 36.2386
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CameraHolder/Camera3D"]
 libraries = {

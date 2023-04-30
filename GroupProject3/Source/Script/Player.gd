@@ -5,7 +5,8 @@ var sprinting = true;
 var moving = false;
 var stamina = 5
 var mouse_sensitivity := 0.1
-var canADS = false
+var canADS = true
+var reloaded = false
 @export var walkSoundLoader = ""
 @export var runSoundLoader = ""
 @onready var walkAudio = $Walk
@@ -36,8 +37,10 @@ func _unhandled_input(event) -> void:
 	if(event.is_action_pressed("restart")):
 		GlobalVar.freezePlayer = false
 		GlobalVar.canOpenInventory = true
-		GlobalVar.keyID = ""
 		GlobalVar.haveFlashLight = false
+		GlobalVar.haveGun = false
+		GlobalVar.invAmmount = 0
+		GlobalVar.invArray = []
 		get_tree().reload_current_scene()
 	if(event.is_action_pressed("ui_cancel")):
 		get_tree().quit()
@@ -91,14 +94,20 @@ func soundPass():
 		stateChanged = false
 
 func gunReadyState(delta):
-	if(Input.is_action_pressed("ADS") and canADS):
-		handGun.position = lerp(handGun.position, Vector3(0,-0.155, -0.35), 7 * delta)
-		handGun.rotation_degrees = lerp(handGun.rotation_degrees, Vector3(0,-180, 0), 7 * delta)
+	if GlobalVar.haveGun:
+		$CameraHolder/Camera3D/Fire.visible = true
 	else:
-		handGun.position = lerp(handGun.position, Vector3(0,-0.25, -0.35), 7 * delta)
+		$CameraHolder/Camera3D/Fire.visible = false
+	if(Input.is_action_pressed("ADS") and canADS):
+		handGun.position = lerp(handGun.position, Vector3(0,-0.155, -0.45), 7 * delta)
+		handGun.rotation_degrees = lerp(handGun.rotation_degrees, Vector3(0,-180, 0), 7 * delta)
+		GlobalVar.isADS = true
+	else:
+		handGun.position = lerp(handGun.position, Vector3(0.0,-0.3, -0.35), 7 * delta)
 		handGun.rotation_degrees = lerp(handGun.rotation_degrees, Vector3(0,-180, -30), 7 * delta)
+		GlobalVar.isADS = false
 		
-	if(Input.is_action_just_pressed("FIRE") and handGun.readyToFire and !GlobalVar.freezePlayer):
+	if(Input.is_action_just_pressed("FIRE") and handGun.readyToFire and !GlobalVar.freezePlayer and GlobalVar.haveGun):
 		GunDryFireSoundEffect.play()
 		if handGun.ammo != 0:
 			GunSoundEffect.play()
@@ -119,11 +128,28 @@ func gunReloadState(delta):
 
 func _process(delta):
 	soundPass()
-	if Input.is_action_just_pressed("reload") and !reloding and handGun.ammo != 8:
-		GunReloadEffect.play()
-		reloding = true
-		handGun.ammo = 8
-		$ReloadEndTimer.start()
+	#GlobalVar.playerGlobalPosition = self.global_position
+	if Input.is_action_just_pressed("reload") and !reloding and handGun.ammo != 8 and GlobalVar.haveGun:
+		var ammoRequest = 8 - handGun.ammo
+		for i in GlobalVar.invArray:
+			if i[0] == "ammo":
+				if i[1] <= ammoRequest:
+					handGun.ammo += i[1]
+					GlobalVar.invArray.erase(i)
+					GlobalVar.invAmmount -= 1
+					reloaded = true
+					break;
+				else:
+					handGun.ammo += ammoRequest
+					i[1] -= ammoRequest
+					reloaded = true
+					break;
+		if reloaded:
+			GunReloadEffect.play()
+			reloding = true
+			$ReloadEndTimer.start()
+			reloaded = false
+		
 	if reloding:
 		gunReloadState(delta)
 	else:

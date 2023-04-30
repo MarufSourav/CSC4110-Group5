@@ -8,8 +8,8 @@ extends Node3D
 @export var buttonActive = true
 @export var doorLocked = false
 @export var doorID = ""
-var doorState = false
 var keyID = ""
+var doorState = false
 var onTrigger = false
 
 func _ready():
@@ -42,6 +42,12 @@ func _unhandled_input(_event) -> void:
 			dialogTrigger2.queue_free()
 			doorUnlocked.play()
 			doorLocked = false
+			for i in GlobalVar.invArray:
+				if i[0] == "key":
+					if str(i[1]) == keyID:
+						GlobalVar.invArray.erase(i)
+						GlobalVar.invAmmount -= 1
+						break;
 			doorID = "0"
 		doorClick.play()
 		buttonActive = false
@@ -61,7 +67,12 @@ func _process(delta):
 func _on_area_3d_body_entered(body):
 	if body is CharacterBody3D:
 		onTrigger = true
-		keyID = GlobalVar.keyID
+		for i in GlobalVar.invArray:
+			if i[0] == "key":
+				if doorID == str(i[1]):
+					keyID = str(i[1])
+					break;
+		
 
 func _on_area_3d_body_exited(body):
 	if body is CharacterBody3D:

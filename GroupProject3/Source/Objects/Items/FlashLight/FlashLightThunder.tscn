@@ -1,13 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://cpp435gsdg330"]
+[gd_scene load_steps=7 format=3 uid="uid://5swx1wsm40ul"]
 
-[ext_resource type="Script" path="res://Script/FlashLightThunder.gd" id="1_cm80s"]
+[ext_resource type="Script" path="res://Objects/Items/FlashLight/FlashLightThunder.gd" id="1_cocwd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4ksl4"]
 albedo_color = Color(0, 0, 0, 1)
 metallic = 0.2
 metallic_specular = 1.0
 emission_enabled = true
-emission = Color(1, 1, 1, 1)
+emission = Color(1, 0, 0, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_qti6f"]
 material = SubResource("StandardMaterial3D_4ksl4")
@@ -21,7 +21,7 @@ albedo_color = Color(0, 0, 0, 1)
 metallic = 0.2
 metallic_specular = 1.0
 emission_enabled = true
-emission = Color(1, 1, 1, 1)
+emission = Color(1, 0, 0, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_52c54"]
 material = SubResource("StandardMaterial3D_1gqju")
@@ -33,7 +33,7 @@ height = 0.225
 
 [node name="FlashLight" type="MeshInstance3D"]
 mesh = SubResource("CylinderMesh_qti6f")
-script = ExtResource("1_cm80s")
+script = ExtResource("1_cocwd")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.196475, 0)
@@ -51,13 +51,13 @@ shadow_enabled = true
 spot_range = 128.994
 spot_angle = 29.0504
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 130.466, -285.685)
-visible = false
-sky_mode = 1
-
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.141
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.83473, 3.38053)
+visible = false
+light_energy = 3.0
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

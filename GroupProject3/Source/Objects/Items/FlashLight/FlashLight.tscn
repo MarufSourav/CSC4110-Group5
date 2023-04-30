@@ -1,13 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://tncmemwxmfcg"]
+[gd_scene load_steps=7 format=3 uid="uid://bckb4ulegj5b2"]
 
-[ext_resource type="Script" path="res://Script/FlashLight.gd" id="1_a3cu4"]
+[ext_resource type="Script" path="res://Objects/Items/FlashLight/FlashLight.gd" id="1_1fsyi"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4ksl4"]
 albedo_color = Color(0, 0, 0, 1)
 metallic = 0.2
 metallic_specular = 1.0
 emission_enabled = true
-emission = Color(1, 1, 1, 1)
+emission = Color(1, 0, 0, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_qti6f"]
 material = SubResource("StandardMaterial3D_4ksl4")
@@ -21,7 +21,7 @@ albedo_color = Color(0, 0, 0, 1)
 metallic = 0.2
 metallic_specular = 1.0
 emission_enabled = true
-emission = Color(1, 1, 1, 1)
+emission = Color(1, 0, 0, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_52c54"]
 material = SubResource("StandardMaterial3D_1gqju")
@@ -33,7 +33,7 @@ height = 0.225
 
 [node name="FlashLight" type="MeshInstance3D"]
 mesh = SubResource("CylinderMesh_qti6f")
-script = ExtResource("1_a3cu4")
+script = ExtResource("1_1fsyi")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.196475, 0)

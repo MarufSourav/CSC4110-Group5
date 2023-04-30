@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bbhls55cwoftx"]
+
+[ext_resource type="AudioStream" uid="uid://df5aobnnac4ax" path="res://Sound/lurking.mp3" id="1_wa6c1"]
+
+[node name="Lurking" type="AudioStreamPlayer"]
+stream = ExtResource("1_wa6c1")
+volume_db = -3.582

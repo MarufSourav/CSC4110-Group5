@@ -26,6 +26,11 @@ theme_override_constants/h_separation = 14
 theme_override_constants/v_separation = 12
 columns = 3
 
+[node name="0" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_bavgi")
+
 [node name="1" type="Panel" parent="GridContainer"]
 custom_minimum_size = Vector2(18, 18)
 layout_mode = 2
@@ -51,14 +56,9 @@ custom_minimum_size = Vector2(18, 18)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_bavgi")
 
-[node name="6" type="Panel" parent="GridContainer"]
-custom_minimum_size = Vector2(18, 18)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_bavgi")
-
-[connection signal="gui_input" from="GridContainer/1" to="." method="_on_1_gui_input"]
-[connection signal="gui_input" from="GridContainer/2" to="." method="_on_2_gui_input"]
-[connection signal="gui_input" from="GridContainer/3" to="." method="_on_3_gui_input"]
-[connection signal="gui_input" from="GridContainer/4" to="." method="_on_4_gui_input"]
-[connection signal="gui_input" from="GridContainer/5" to="." method="_on_5_gui_input"]
-[connection signal="gui_input" from="GridContainer/6" to="." method="_on_6_gui_input"]
+[connection signal="gui_input" from="GridContainer/0" to="." method="_on_1_gui_input"]
+[connection signal="gui_input" from="GridContainer/1" to="." method="_on_2_gui_input"]
+[connection signal="gui_input" from="GridContainer/2" to="." method="_on_3_gui_input"]
+[connection signal="gui_input" from="GridContainer/3" to="." method="_on_4_gui_input"]
+[connection signal="gui_input" from="GridContainer/4" to="." method="_on_5_gui_input"]
+[connection signal="gui_input" from="GridContainer/5" to="." method="_on_6_gui_input"]

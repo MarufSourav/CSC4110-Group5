@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://coeejbgo6xx2h"]
+
+[ext_resource type="Script" path="res://Objects/Items/Ammo/ammo_item.gd" id="2_kpba5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jiah1"]
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_c1vbg"]
+size = Vector3(0.453, 0.301, 1.483)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2kubx"]
+size = Vector3(2.69583, 2.65802, 2.66675)
+
+[node name="Ammo" type="MeshInstance3D"]
+transform = Transform3D(0.12, 0, 0, 0, 0.12, 0, 0, 0, 0.12, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_jiah1")
+mesh = SubResource("BoxMesh_c1vbg")
+script = ExtResource("2_kpba5")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.979667, 0)
+shape = SubResource("BoxShape3D_2kubx")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_body_exited"]

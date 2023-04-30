@@ -1,7 +1,10 @@
 extends Node
 var freezePlayer = false
 var canOpenInventory = true
-var keyID = ""
 var haveFlashLight = false
-var emptyArray = []
+var haveGun = false
+var invArray = []
+var invAmmount = 0
 var arrayMaxSize = 6
+var isADS = false
+var playerGlobalPosition
