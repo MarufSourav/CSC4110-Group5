@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://cqbtur7kf82ev"]
+[gd_scene load_steps=42 format=3 uid="uid://cqbtur7kf82ev"]
 
 [ext_resource type="Script" path="res://Script/WorldManager.gd" id="1_jvsde"]
 [ext_resource type="Texture2D" uid="uid://dt7pkhrngpm6d" path="res://Texture/skyCloud.jpg" id="1_xqwwo"]
@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://cvt1qmdotjmrm" path="res://Objects/Items/HandGunItem/hand_gun_item.tscn" id="17_c1pf7"]
 [ext_resource type="PackedScene" uid="uid://coeejbgo6xx2h" path="res://Objects/Items/Ammo/ammo.tscn" id="18_86sd3"]
 [ext_resource type="PackedScene" uid="uid://clpj2b475tpr" path="res://Objects/Zombie/enemy.tscn" id="19_4bnin"]
+[ext_resource type="PackedScene" uid="uid://bf2wawfj01agt" path="res://Objects/Items/Papers/paper.tscn" id="20_4bo47"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_865oa"]
 size = Vector3(2.34698, 1, 0.491706)
@@ -31,6 +32,20 @@ size = Vector3(2.29529, 1, 1.80604)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_572ns"]
 size = Vector3(3.079, 1, 2.27)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_aj2pj"]
+size = Vector3(2.54964, 1, 4.87459)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ifnqj"]
+size = Vector3(3.48548, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_been2"]
+size = Vector3(3.48771, 3.51634, 2.57203)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ywcxg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n8yjn"]
+size = Vector3(1, 1, 5.59582)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7d3ab"]
 albedo_texture = ExtResource("8_wcd2i")
@@ -80,6 +95,9 @@ sample_partition_type = 1
 [node name="World" type="Node3D"]
 script = ExtResource("1_jvsde")
 
+[node name="Location" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.5, -6.5)
+
 [node name="EventTrigger" type="Node3D" parent="."]
 
 [node name="Event1" type="Area3D" parent="EventTrigger"]
@@ -123,6 +141,41 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.5943, 0, 16.3042)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="EventTrigger/Event4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.565235, 0)
 shape = SubResource("BoxShape3D_572ns")
+
+[node name="Event5" type="Area3D" parent="EventTrigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.58798, 0.526844, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EventTrigger/Event5"]
+shape = SubResource("BoxShape3D_aj2pj")
+
+[node name="Event6" type="Area3D" parent="EventTrigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.4842, 0.200673, -19.5572)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EventTrigger/Event6"]
+shape = SubResource("BoxShape3D_ifnqj")
+
+[node name="EventFinal" type="Area3D" parent="EventTrigger"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EventTrigger/EventFinal"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.9492, 0, -8.81564)
+shape = SubResource("BoxShape3D_been2")
+
+[node name="DialogTrigger3" parent="EventTrigger" instance=ExtResource("2_r5w0i")]
+transform = Transform3D(2.696, 0, 0, 0, 2.696, 0, 0, 0, 2.696, -26.0056, 0.000500083, -8.72274)
+oneShot = true
+textString = "TIME TO GET OUT OF HERE"
+
+[node name="winReady" type="Area3D" parent="EventTrigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.240925, 0, 34.2485)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EventTrigger/winReady"]
+shape = SubResource("BoxShape3D_ywcxg")
+
+[node name="Event7" type="Area3D" parent="EventTrigger"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EventTrigger/Event7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.38743, 0.657792, -20.6626)
+shape = SubResource("BoxShape3D_n8yjn")
 
 [node name="DoorLocked" parent="." instance=ExtResource("4_ow3iv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.8474, 1.25, -9.94243)
@@ -187,7 +240,7 @@ speed_scale = 1.76
 randomness = 0.35
 
 [node name="Player" parent="." instance=ExtResource("2_ptrb0")]
-transform = Transform3D(0.0263339, 0, 0.999653, 0, 1, 0, -0.999653, 0, 0.0263339, -1.98349, 1.19741, 43.2739)
+transform = Transform3D(0.0263339, 0, 0.999653, 0, 1, 0, -0.999653, 0, 0.0263339, -1.98349, 1.09981, 42.4369)
 walkSoundLoader = "res://Sound/outdoor-footsteps-walk.wav"
 runSoundLoader = "res://Sound/outdoor-footsteps-run.wav"
 
@@ -756,6 +809,30 @@ ammo_ammount = 4
 transform = Transform3D(0.086379, 0, -0.0832987, 0, 0.12, 0, 0.0832987, 0, 0.086379, 30.8584, 0.32929, 4.34603)
 ammo_ammount = 4
 
+[node name="Ammo6" parent="." instance=ExtResource("18_86sd3")]
+transform = Transform3D(0.086379, 0, -0.0832987, 0, 0.12, 0, 0.0832987, 0, 0.086379, 5.89382, 0.32929, 6.4922)
+ammo_ammount = 4
+
+[node name="Ammo7" parent="." instance=ExtResource("18_86sd3")]
+transform = Transform3D(0.086379, 0, -0.0832987, 0, 0.12, 0, 0.0832987, 0, 0.086379, 5.89382, 0.32929, 7.3175)
+ammo_ammount = 4
+
+[node name="Ammo8" parent="." instance=ExtResource("18_86sd3")]
+transform = Transform3D(0.086379, 0, -0.0832987, 0, 0.12, 0, 0.0832987, 0, 0.086379, 4.98596, 0.32929, 6.56852)
+ammo_ammount = 4
+
+[node name="Ammo9" parent="." instance=ExtResource("18_86sd3")]
+transform = Transform3D(0.086379, 0, -0.0832987, 0, 0.12, 0, 0.0832987, 0, 0.086379, 0.680563, 0.32929, -11.7749)
+ammo_ammount = 4
+
+[node name="Ammo10" parent="." instance=ExtResource("18_86sd3")]
+transform = Transform3D(0.086379, 0, -0.0832987, 0, 0.12, 0, 0.0832987, 0, 0.086379, 0.680563, 0.32929, -10.9496)
+ammo_ammount = 4
+
+[node name="Ammo11" parent="." instance=ExtResource("18_86sd3")]
+transform = Transform3D(0.086379, 0, -0.0832987, 0, 0.12, 0, 0.0832987, 0, 0.086379, -0.227302, 0.32929, -11.6986)
+ammo_ammount = 4
+
 [node name="Lights" type="Node" parent="."]
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Lights"]
@@ -764,6 +841,10 @@ omni_range = 8.0
 
 [node name="OmniLight3D3" type="OmniLight3D" parent="Lights"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.8007, 5.96778, 21.5657)
+omni_range = 8.0
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.72547, 4.24153, 6.27564)
 omni_range = 8.0
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
@@ -788,11 +869,16 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -24.84
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.477809, 1.94273, 16.6011)
 enabled = false
 
-[node name="Location" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.5, 0.5, 15)
+[node name="paper" parent="." instance=ExtResource("20_4bo47")]
+transform = Transform3D(0.052, 0, 0, 0, 0.052, 0, 0, 0, 0.052, -26.1571, 0.000499964, -9.05188)
 
 [connection signal="body_entered" from="EventTrigger/Event1" to="." method="_on_event_1_body_entered"]
 [connection signal="body_entered" from="EventTrigger/Event2" to="." method="_on_event_2_body_entered"]
 [connection signal="body_entered" from="EventTrigger/Event3" to="." method="_on_event_3_body_entered"]
 [connection signal="body_entered" from="EventTrigger/Event4" to="." method="_on_event_4_body_entered"]
+[connection signal="body_entered" from="EventTrigger/Event5" to="." method="_on_event_5_body_entered"]
+[connection signal="body_entered" from="EventTrigger/Event6" to="." method="_on_event_6_body_entered"]
+[connection signal="body_entered" from="EventTrigger/EventFinal" to="." method="_on_event_final_body_entered"]
+[connection signal="body_entered" from="EventTrigger/winReady" to="." method="_on_win_ready_body_entered"]
+[connection signal="body_entered" from="EventTrigger/Event7" to="." method="_on_event_7_body_entered"]
 [connection signal="timeout" from="NodeFreeTimer" to="." method="_on_node_free_timer_timeout"]

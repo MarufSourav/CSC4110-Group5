@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://22ixywje5rwy"]
+
+[ext_resource type="Script" path="res://Script/DeathScene.gd" id="1_w1uor"]
+[ext_resource type="Texture2D" uid="uid://bly0rxchsb1x8" path="res://Texture/black.png" id="2_vmvxe"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_w1uor")
+
+[node name="Black" type="Sprite2D" parent="."]
+position = Vector2(206, 81)
+texture = ExtResource("2_vmvxe")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 320.0
+offset_bottom = 179.0
+text = "You Win!!!
+Press P to Restart"
+horizontal_alignment = 1
+vertical_alignment = 1

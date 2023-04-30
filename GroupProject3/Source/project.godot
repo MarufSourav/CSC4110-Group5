@@ -32,10 +32,11 @@ LurkingSound="*res://Sound/LurkingSound.tscn"
 
 window/size/viewport_width=320
 window/size/viewport_height=180
+window/size/mode=4
 window/size/resizable=false
 window/size/always_on_top=true
-window/size/window_width_override=1280
-window/size/window_height_override=720
+window/size/window_width_override=1920
+window/size/window_height_override=1080
 window/stretch/mode="viewport"
 window/vsync/vsync_mode=0
 

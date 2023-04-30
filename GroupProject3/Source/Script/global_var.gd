@@ -8,3 +8,4 @@ var invAmmount = 0
 var arrayMaxSize = 6
 var isADS = false
 var playerGlobalPosition
+var winReady = false
