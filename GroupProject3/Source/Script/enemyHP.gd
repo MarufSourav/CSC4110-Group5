@@ -34,4 +34,5 @@ func _on_navigation_agent_3d_target_reached():
 	GlobalVar.haveGun = false
 	GlobalVar.invAmmount = 0
 	GlobalVar.invArray = []
+	GlobalVar.winReady = false
 	get_tree().change_scene_to_file("res://Scene/DeathScene.tscn")
