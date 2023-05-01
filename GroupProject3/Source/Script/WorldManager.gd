@@ -52,8 +52,8 @@ func _on_event_3_body_entered(body):
 
 func _on_event_4_body_entered(body):
 	if body is CharacterBody3D:
-		addEnemy(Vector3(-20.5, 0.5, 15))
-		addEnemy(Vector3(-20.5, 0.5, 5))
+		addEnemy(Vector3(-13.8, 0.5, 4.1))
+		addEnemy(Vector3(-13.8, 0.5, 15))
 		$EventTrigger/Event4.queue_free()
 func _on_event_5_body_entered(body):
 	if body is CharacterBody3D:
@@ -70,14 +70,12 @@ func _on_event_7_body_entered(body):
 		$EventTrigger/Event7.queue_free()
 func _on_event_final_body_entered(body):
 	if body is CharacterBody3D:
-		$Door1.doorUnlocked = true
+		$Door1.doorLocked = false
 		$Door1.isOpen = true
+		$Door1/DialogTrigger3.queue_free()
 		addEnemy(Vector3(0, 0.5, -10))
 		addEnemy(Vector3(27, 0.5, -21))
 		addEnemy(Vector3(23, 0.5, -21))
-		addEnemy(Vector3(13, 0.5, 28))
-		addEnemy(Vector3(0.3, 0.5, 28))
-		addEnemy(Vector3(-13, 0.5, 28))
 		$EventTrigger/EventFinal.queue_free()
 
 
@@ -93,9 +91,9 @@ func _on_win_ready_body_entered(body):
 		
 
 
-
-
-
-
-
-
+func _on_event_8_body_entered(body):
+	if body is CharacterBody3D and GlobalVar.winReady:
+		addEnemy(Vector3(13, 0.5, 28))
+		addEnemy(Vector3(0.3, 0.5, 28))
+		addEnemy(Vector3(-13, 0.5, 28))
+		$EventTrigger/Event8.queue_free()

@@ -98,11 +98,11 @@ stream = ExtResource("6_vb2ea")
 volume_db = -16.983
 
 [node name="DialogTrigger" parent="." instance=ExtResource("6_1d1ut")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.26, 0.42, 1.34)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.51, 0.225172, 0.42, 1.37171)
 textString = "Door Locked"
 
 [node name="DialogTrigger2" parent="." instance=ExtResource("6_1d1ut")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.202227, 0.375019, -1.36702)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.526, -0.175387, 0.375019, -1.35886)
 textString = "Door Locked"
 
 [node name="ROF" type="Timer" parent="."]

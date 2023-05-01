@@ -1,5 +1,5 @@
 extends CharacterBody3D
-@export var health = 4
+@export var health = 3
 var SPEED = 4.5
 @export var enabled = true
 @onready var nav_agent = $NavigationAgent3D
